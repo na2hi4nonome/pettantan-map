@@ -1,0 +1,83 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [133.8305, 35.4878] },
+      "properties": {
+        "id": "sample01",
+        "name": "サンプル食堂（ダミー）",
+        "category": "food",
+        "stampType": ["eat", "eat_night"],
+        "hours": "11:00〜14:30 / 17:30〜20:30",
+        "closed": "水曜日",
+        "note": "おすすめメニューなどのメモ欄です（ダミー）。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [133.8211, 35.4312] },
+      "properties": {
+        "id": "sample02",
+        "name": "サンプル喫茶店（ダミー）",
+        "category": "food",
+        "stampType": ["eat"],
+        "hours": "9:00〜17:00",
+        "closed": "火曜日",
+        "note": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [133.826, 35.4298] },
+      "properties": {
+        "id": "sample03",
+        "name": "サンプルベーカリー（ダミー）",
+        "category": "food",
+        "stampType": ["eat", "eat_night"],
+        "hours": "8:00〜18:00",
+        "closed": "日曜・祝日",
+        "note": "テイクアウトのみでもぺったん可能。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [133.8364, 35.4845] },
+      "properties": {
+        "id": "sample04",
+        "name": "サンプルホテル（ダミー）",
+        "category": "hotel",
+        "stampType": ["stay", "eat"],
+        "hours": "終日",
+        "closed": "なし",
+        "note": "宿泊が条件ですが、レストラン利用でも食べてぺったんできます。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [133.79, 35.365] },
+      "properties": {
+        "id": "sample05",
+        "name": "サンプル温泉（ダミー）",
+        "category": "onsen",
+        "stampType": ["onsen"],
+        "hours": "10:00〜22:00",
+        "closed": "木曜日",
+        "note": "入浴が条件です。"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [133.8185, 35.4322] },
+      "properties": {
+        "id": "sample06",
+        "name": "サンプル観光施設（ダミー）",
+        "category": "spot",
+        "stampType": ["visit"],
+        "hours": "9:00〜17:00",
+        "closed": "年末年始",
+        "note": ""
+      }
+    }
+  ]
+}

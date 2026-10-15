@@ -1,0 +1,690 @@
+/* =========================================
+   ぺったんたん非公式マップ 共通スタイル
+   ========================================= */
+
+/* ---- 1. 全体設定 ---- */
+/* :rootに決めておくと「色を変えたくなった時にここ1行だけ」で済む */
+:root {
+  --main-color: #e8547e; /* メイン（ピンク） */
+  --main-dark: #c73a63;
+  --bg-color: #fdf7f4;
+  --text-color: #333;
+  --muted-color: #777;
+  --card-bg: #fff;
+  --radius: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* スマホ基準で書き、広い画面だけ @media で上書きする（モバイルファースト） */
+html {
+  scroll-behavior: smooth;
+} /* ページ内リンクをゆっくりスクロール */
+
+body {
+  font-family:
+    "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
+    sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--main-color);
+}
+
+/* ---- リスト ---- */
+/* リセットで消えたブラウザ既定の左余白を、マーカー分だけ戻す。
+   折り返した2行目以降も「テキストの開始位置」に揃う（下図） */
+ul,
+ol {
+  padding-left: 1.6em;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ---- 2. ヘッダー ---- */
+.site-header {
+  background: var(--main-color);
+  color: #fff;
+  padding: 12px 0;
+  position: sticky; /* ★追加1：スクロールしても粘着する */
+  top: 0; /* ★追加2：画面上端に張り付く */
+  z-index: 100; /* ★追加3：本文より手前に浮かせる */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* ★追加4：浮いてる感を出す影 */
+}
+.site-title a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.unofficial {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.7rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 1px 6px;
+  vertical-align: middle;
+}
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 6px;
+  font-size: 0.9rem;
+}
+.site-nav a {
+  color: #fff;
+  text-decoration: none;
+}
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+/* アンカージャンプの着地点を、ヘッダーの高さ分だけ下にずらす。
+   これがないと飛び先の見出しがstickyヘッダーの裏に隠れる */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit; /* 親（body）のフォントを引き継ぐ */
+}
+
+/* ---- 3. ヒーロー・セクション共通 ---- */
+.hero {
+  padding: 48px 0 40px;
+  /* 背景を2枚重ねる：カンマ区切りで「先に書いた方が手前」 */
+  background-image:
+    /* 1枚目：スタンプ風の水玉（ぺったんたんのテーマそのもの） */
+    radial-gradient(circle, rgba(232, 84, 126, 0.08) 6px, transparent 7px),
+    /* 2枚目：上は淡いピンク → 下はサイトの背景色へ消えていく */
+    linear-gradient(180deg, #ffe4ed 0%, var(--bg-color) 100%);
+  background-size:
+    36px 36px,
+    auto; /* 水玉は36px間隔のタイル、グラデは全体 */
+}
+
+.hero h1 {
+  font-size: 1.9rem; /* 1.6 → 1.9に拡大 */
+  font-weight: 700; /* Zen Maru GothicのBold */
+  line-height: 1.35;
+  letter-spacing: 0.02em; /* ほんのり字間を開けてゆったり */
+  margin-bottom: 12px;
+}
+.hero h1 .accent {
+  color: var(--main-color); /* 「ぺったんたん」だけメイン色 */
+}
+
+.hero-lead {
+  margin-bottom: 8px;
+}
+.hero-period {
+  display: inline-block; /* pはブロック要素なので、内容幅まで縮める */
+  background: #fff;
+  border: 2px solid var(--main-color);
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-weight: bold;
+  color: var(--main-dark);
+  margin-bottom: 16px;
+}
+
+.alert {
+  background: #fff3cd;
+  border: 1px solid #ffe08a;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 0.85rem;
+}
+
+.section {
+  padding: 32px 0;
+}
+.section-alt {
+  background: #fff;
+} /* 背景を変えて区切りを目立たせる */
+
+h2 {
+  font-size: 1.25rem;
+  border-left: 6px solid var(--main-color);
+  padding-left: 10px;
+  margin-bottom: 16px;
+}
+h3 {
+  font-size: 1.05rem;
+  margin: 20px 0 8px;
+}
+
+/* ---- 3.5 ボタン（汎用パーツ） ---- */
+.hero-actions {
+  margin: 20px 0;
+}
+
+/* 基本形：形と大きさだけを担当する */
+.btn {
+  display: inline-block; /* aはインライン要素なので、paddingや影を効かせるために箱化する */
+  padding: 12px 36px;
+  border-radius: 999px; /* 左右を半円にする値→カプセル型 */
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  transition:
+    background-color 0.2s,
+    transform 0.15s; /* 変化をなめらかに */
+}
+.btn:active {
+  transform: scale(0.97);
+} /* 押し込んだ感 */
+
+/* 色のバリエーション（修飾子）：色だけを担当する */
+.btn-primary {
+  background: var(--main-color);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(232, 84, 126, 0.35); /* メイン色の半透明 */
+}
+.btn-primary:hover {
+  background: var(--main-dark);
+}
+
+.btn-outline {
+  border: 2px solid var(--main-color);
+  background: var(--card-bg);
+  color: var(--main-color);
+}
+.btn-outline:hover {
+  background: #fdeef2;
+}
+
+/* サイズのバリエーション（修飾子）：大きさだけを担当する */
+.btn-sm {
+  padding: 6px 18px;
+  font-size: 0.85rem;
+}
+
+/* ---- 4. 進め方 ---- */
+.howto-steps li {
+  margin-bottom: 6px;
+}
+.stamp-types li {
+  margin-bottom: 4px;
+}
+
+/* ---- 5. リンク集 ---- */
+.link-list {
+  list-style: none;
+  padding-left: 0;
+}
+.link-list li {
+  margin-bottom: 4px;
+}
+
+/* ---- 6. 店舗一覧 ---- */
+.shop-count {
+  color: var(--muted-color);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+.shop-grid {
+  display: grid;
+  gap: 12px;
+}
+.shop-card {
+  background: var(--card-bg);
+  border: 1px solid #eee;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.shop-name {
+  font-size: 1.05rem;
+  border: none;
+  padding: 0;
+  margin: 0 0 2px;
+}
+.shop-category {
+  font-size: 0.8rem;
+  color: var(--muted-color);
+  margin-bottom: 6px;
+}
+.shop-meta {
+  font-size: 0.85rem;
+  margin: 6px 0;
+}
+.shop-note {
+  font-size: 0.85rem;
+  color: #555;
+  background: #faf5f0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin: 6px 0;
+}
+.shop-maplink {
+  margin-top: 4px;
+}
+
+/* スタンプ条件のバッジ。JSONの stampType の値＝クラス名で色分け */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 10px;
+  margin: 2px 4px 2px 0;
+}
+.badge-eat {
+  background: #e8547e;
+}
+.badge-eat_night {
+  background: #6a4c93;
+}
+.badge-visit {
+  background: #2a9d8f;
+}
+.badge-stay {
+  background: #4361ee;
+}
+.badge-onsen {
+  background: #f4a261;
+}
+
+.error {
+  color: #b00020;
+  font-weight: bold;
+}
+
+/* ---- 7. フッター ---- */
+.site-footer {
+  background: #444;
+  color: #ccc;
+  font-size: 0.8rem;
+  padding: 24px 0 32px;
+  margin-top: 24px;
+}
+.site-footer p {
+  margin-bottom: 6px;
+}
+.copyright {
+  text-align: center;
+  color: #999;
+  margin-top: 12px;
+}
+
+/* ---- 8. マップページ ---- */
+/* 「ヘッダー＋地図」で画面をちょうど1枚に収めるレイアウト */
+body.map-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh; /* dvh：スマホのURLバーの出入りで高さが変わる問題への対応。
+                       未対応ブラウザは上の100vhが使われる（二重指定はそのため） */
+  overflow: hidden; /* ページ全体のスクロールを止める。地図のピンチ操作と
+                       ページスクロールの干渉を防ぐため */
+}
+.map-header {
+  background: var(--main-color);
+  color: #fff;
+  padding: 8px 0;
+  flex: none; /* ヘッダーは縮まない宣言 */
+}
+.map-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* タイトルは左、戻るリンクは右に寄せる */
+  flex-wrap: wrap; /* 狭い画面ではタイトルと戻るリンクを縦並びにする */
+  gap: 4px 12px;
+}
+.map-header .site-title {
+  font-size: 1rem;
+}
+.map-header a {
+  color: #fff;
+  text-decoration: none;
+}
+.map-header a:hover {
+  text-decoration: underline;
+}
+
+.map-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.locate-btn {
+  background: #fff;
+  color: var(--main-dark);
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.locate-btn:hover {
+  background: #fdeef2;
+}
+/* 「取得中」の間は押せない＆砂時計カーソル */
+.locate-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* 地図本体：flex:1 で「ヘッダーを除いた残り全部」を占有 */
+#map {
+  flex: 1;
+  min-height: 0; /* flexアイテムはデフォルトで「内容より縮まない」ため、
+                         縮むことを明示しないと地図が画面からはみ出す */
+  background: #e8e4dc; /* タイル読み込み完了前の地肌色 */
+}
+
+/* Leaflet生成部分をサイトのデザインに寄せる */
+.leaflet-container {
+  font-family: inherit;
+} /* Leafletは独自フォント指定を持つので上書き */
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius);
+}
+.leaflet-popup-content {
+  margin: 12px 16px;
+  line-height: 1.6;
+}
+
+/* マーカー（pin） */
+.pin-wrap {
+  background: none;
+  border: none;
+} /* divIconの既定スタイル（白い四角枠）を消す */
+.pin {
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #999;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.pin-food {
+  border-color: #e8547e;
+}
+.pin-shop {
+  border-color: #2a9d8f;
+}
+.pin-hotel {
+  border-color: #4361ee;
+}
+.pin-onsen {
+  border-color: #f4a261;
+}
+.pin-spot {
+  border-color: #6a4c93;
+}
+
+/* ポップアップ内の部品 */
+.popup-name {
+  font-size: 0.95rem;
+}
+.popup-cat {
+  font-size: 0.75rem;
+  color: var(--muted-color);
+  margin-bottom: 4px;
+}
+.popup-meta {
+  font-size: 0.8rem;
+  margin: 6px 0;
+}
+.popup-note {
+  font-size: 0.8rem;
+  color: #555;
+  background: #faf5f0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin: 6px 0;
+}
+.popup-link {
+  font-size: 0.8rem;
+}
+/* ---- 9. ぺったん済ボタンと進捗表示 ---- */
+.stamp-btn {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 2px solid var(--main-color);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.1s; /* 変化をなめらかに */
+  position: relative; /* ★追加：はんこ（疑似要素）の配置基準になる */
+  overflow: visible; /* ★追加：はんこがボタンからはみ出しても切らない */
+}
+
+/* ★追加：押し込み感（指で押した瞬間の縮み） */
+.stamp-btn:active {
+  transform: scale(0.94);
+}
+
+.stamp-btn:hover {
+  background: #fdeef2;
+}
+/* 「済み」状態。JSがstampedクラスを付け外しする */
+.stamp-btn.stamped {
+  background: var(--main-color);
+  color: #fff;
+}
+
+/* カード内のボタンとリンクを横並びに */
+.shop-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* 進捗バー */
+.progress {
+  height: 10px;
+  background: #eee;
+  border-radius: 999px;
+  overflow: hidden; /* 中の丸角を外枠ではみ出さないように切る */
+  margin: 8px 0 16px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%; /* 初期値。JSが%を代入して伸ばす */
+  background: var(--main-color);
+  border-radius: 999px;
+  transition: width 0.4s; /* 数値が変わるとぬるっと伸びる */
+}
+
+/* マップページのヘッダー内カウンタ */
+.stamp-progress {
+  font-size: 0.85rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* ポップアップ内ではボタンを横いっぱいに */
+.leaflet-popup-content .stamp-btn {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.list-tools {
+  margin-bottom: 12px;
+}
+
+/* ---- 10. 絞り込み・検索 ---- */
+.search-box {
+  width: 100%;
+  padding: 10px 16px;
+  border: 2px solid #ddd;
+  border-radius: 999px;
+  font-size: 1rem; /* 1rem=16px。16px未満だとiPhoneでフォーカスした瞬間に画面がズームされる対策 */
+  background: #fff;
+}
+.filter-box {
+  margin-bottom: 16px;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap; /* チップが多いとき自動で折り返す */
+  gap: 6px;
+  margin: 6px 0;
+}
+.chip {
+  border: 1.5px solid var(--main-color);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--main-color);
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+.chip.active {
+  background: var(--main-color);
+  color: #fff;
+}
+.stamp-count {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.no-result {
+  color: var(--muted-color);
+  text-align: center;
+  padding: 32px 0;
+}
+
+/* マップページの絞り込みバー */
+/* ツールバー：常時表示は1行だけ */
+.map-toolbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+.map-toolbar .search-box {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* 開閉式の絞り込みパネル */
+.filter-panel {
+  flex: none;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 8px 16px 10px;
+}
+/* ⚠ 注意：ここに display: flex などを書かないこと！
+   書くと [hidden] 属性の display: none が負けて、
+   閉じているはずのパネルが常に表示されてしまう */
+
+.filter-count {
+  font-size: 0.8rem;
+  color: var(--muted-color);
+  white-space: nowrap;
+}
+
+/* ---- 11. ぺったん演出 ---- */
+/* 済みになった瞬間、ボタン自体がぷにっと弾む */
+.stamp-btn.just-stamped {
+  animation: btn-pop 0.3s ease-out;
+}
+@keyframes btn-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.92);
+  } /* 押し込み */
+  75% {
+    transform: scale(1.05);
+  } /* 跳ね返り */
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* はんこ本体。ボタンの上に白い印が落ちてきて消える */
+.stamp-btn.just-stamped::after {
+  content: ""; /* ★空文字でも"必須"。書かないと疑似要素自体が消える */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 64px;
+  height: 64px;
+  /* 画像を背景として貼る */
+  background-image: url("../img/stamp.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+  animation: stamp-press 0.65s ease-out forwards;
+}
+
+/* 台本：落ちる → 押して一瞬キープ → 消える */
+@keyframes stamp-press {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.4) rotate(-16deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(-10deg);
+  }
+  65% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(-10deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.06) rotate(-10deg);
+  }
+}
+
+/* ★OS設定で「動きを減らす」人のための配慮 */
+@media (prefers-reduced-motion: reduce) {
+  .stamp-btn.just-stamped {
+    animation: none;
+  }
+  .stamp-btn.just-stamped::after {
+    content: none; /* はんこ自体を出さない */
+  }
+}
+
+/* ---- 8. 広い画面での上書き ---- */
+@media (min-width: 700px) {
+  .shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+}
