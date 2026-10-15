@@ -7,10 +7,10 @@
 const map = L.map("map").setView([35.487, 133.825], 14);
 
 // ===== 2. 地図タイル（背景画像）の読み込み =====
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19, // OSMが提供する最大ズーム。超えてもボケるだけなので制限する
+L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png", {
+  maxZoom: 18, 
   attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+    '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>',
 }).addTo(map);
 
 // ===== 3. 店舗データの読み込みとピン表示 =====
