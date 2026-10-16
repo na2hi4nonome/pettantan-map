@@ -7,10 +7,10 @@
 const map = L.map("map").setView([35.487, 133.825], 14);
 
 // ===== 2. 地図タイル（背景画像）の読み込み =====
-L.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_4l45_1_5507d2bca549a2bf6be8ff4f", {
+L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png", {
   maxZoom: 18, 
   attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
+    '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>',
 }).addTo(map);
 
 // ===== 3. 店舗データの読み込みとピン表示 =====
