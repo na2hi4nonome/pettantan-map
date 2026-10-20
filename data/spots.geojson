@@ -6,8 +6,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          133.849998,
-          35.454401
+          133.8500623,
+          35.45457413
         ]
       },
       "properties": {
@@ -27,17 +27,19 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.849607,
+          35.45147894
         ]
       },
       "properties": {
         "id": "spot02",
         "name": "ごっつおらーめん倉吉本店",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜14:00／18:00〜26:00",
-        "closed": "月曜",
+        "closed": "定休日は要確認",
         "note": "夜スタンプ可"
       }
     },
@@ -46,15 +48,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8492984,
+          35.4509693
         ]
       },
       "properties": {
         "id": "spot03",
         "name": "横浜家系ラーメン𠮷岡家 倉吉駅前店",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜15:00／17:00〜23:00",
         "closed": "無休",
         "note": "夜スタンプ可"
@@ -65,15 +69,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8502699,
+          35.44850165
         ]
       },
       "properties": {
         "id": "spot04",
         "name": "ラーメンつばさ",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜14:00LO",
         "closed": "火曜",
         "note": ""
@@ -84,15 +90,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8380088,
+          35.43791777
         ]
       },
       "properties": {
         "id": "spot05",
         "name": "石谷精華堂 本店",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "喫茶8:00〜17:30",
         "closed": "元日のみ",
         "note": ""
@@ -103,15 +111,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8419184,
+          35.42766142
         ]
       },
       "properties": {
         "id": "spot06",
         "name": "ティーラウンジ ダイアナ",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "8:30〜20:00",
         "closed": "日曜",
         "note": "夜スタンプ可"
@@ -122,15 +132,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8271202,
+          35.43297983
         ]
       },
       "properties": {
         "id": "spot07",
         "name": "デリカリカフェ",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜13:30LO",
         "closed": "木曜",
         "note": ""
@@ -141,15 +153,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8254811,
+          35.43063453
         ]
       },
       "properties": {
         "id": "spot08",
         "name": "粉もんや楽園",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜14:30／17:00〜19:30",
         "closed": "水曜",
         "note": "夜スタンプ可"
@@ -160,15 +174,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8252052,
+          35.43077785
         ]
       },
       "properties": {
         "id": "spot09",
         "name": "混智恵流都",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "14:00〜18:00",
         "closed": "火・水",
         "note": ""
@@ -179,15 +195,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8267273,
+          35.43156531
         ]
       },
       "properties": {
         "id": "spot10",
         "name": "町屋清水庵",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜14:00／17:00〜20:00LO",
         "closed": "月曜、火・水曜の夜",
         "note": "夜スタンプ可（夜ページの定休日は「火曜・水曜夜」表記）"
@@ -198,15 +216,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8263328,
+          35.43159998
         ]
       },
       "properties": {
         "id": "spot11",
         "name": "日本料理飛鳥",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜13:30LO",
         "closed": "月曜",
         "note": ""
@@ -217,15 +237,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8248612,
+          35.43155312
         ]
       },
       "properties": {
         "id": "spot12",
         "name": "りんりんや",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜18:00",
         "closed": "無休",
         "note": ""
@@ -236,15 +258,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8246617,
+          35.43154066
         ]
       },
       "properties": {
         "id": "spot13",
         "name": "COUP! la Café クラカフェ",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜16:00",
         "closed": "年末年始",
         "note": ""
@@ -255,15 +279,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.824176,
+          35.43160878
         ]
       },
       "properties": {
         "id": "spot14",
         "name": "カフェCOA",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜17:00",
         "closed": "不定休",
         "note": ""
@@ -274,15 +300,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8242034,
+          35.43172296
         ]
       },
       "properties": {
         "id": "spot15",
         "name": "BREW LAB KURAYOSHI",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜18:00（金・土・祝は19:30LO）",
         "closed": "水曜",
         "note": ""
@@ -293,15 +321,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8249341,
+          35.4319334
         ]
       },
       "properties": {
         "id": "spot16",
-        "name": "Tsudoi",
-        "category": "",
-        "stampType": [],
+        "name": "Tsudoi 〜Meat Camp〜",
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜14:30",
         "closed": "不定休",
         "note": ""
@@ -312,15 +342,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8247638,
+          35.43280973
         ]
       },
       "properties": {
         "id": "spot17",
         "name": "新来軒",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜17:00",
         "closed": "不定休",
         "note": ""
@@ -331,15 +363,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8245594,
+          35.43305248
         ]
       },
       "properties": {
         "id": "spot18",
         "name": "打吹回廊",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜16:00",
         "closed": "木曜",
         "note": ""
@@ -350,15 +384,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8239213,
+          35.43222454
         ]
       },
       "properties": {
         "id": "spot19",
-        "name": "久楽",
-        "category": "",
-        "stampType": [],
+        "name": "赤瓦五号館 久楽",
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜16:45",
         "closed": "不定休",
         "note": ""
@@ -369,15 +405,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8237123,
+          35.43224342
         ]
       },
       "properties": {
         "id": "spot20",
         "name": "鳥取おたね茶屋",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜15:00",
         "closed": "火・水曜、隔週日曜日",
         "note": ""
@@ -388,15 +426,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8239162,
+          35.43293544
         ]
       },
       "properties": {
         "id": "spot21",
         "name": "たこ焼き龍月",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜18:00",
         "closed": "木曜",
         "note": ""
@@ -407,15 +447,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8238882,
+          35.43357234
         ]
       },
       "properties": {
         "id": "spot22",
         "name": "お菓子処まんばや",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "8:30〜18:30",
         "closed": "月曜",
         "note": ""
@@ -426,17 +468,19 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8256873,
+          35.43437103
         ]
       },
       "properties": {
         "id": "spot23",
-        "name": "うどんと甘味「亀の尾」",
-        "category": "",
-        "stampType": [],
+        "name": "甘味処「亀の尾」\n\n-Cafe & Restaurant -",
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜16:00",
-        "closed": "木曜",
+        "closed": "第3火曜日※要確認",
         "note": ""
       }
     },
@@ -445,18 +489,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8213069,
+          35.43276052
         ]
       },
       "properties": {
         "id": "spot24",
         "name": "レストラン三日月",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:30〜14:00／17:30〜21:00",
-        "closed": "木曜",
-        "note": "夜スタンプ可（PDF時点で6月末まで休業予定）"
+        "closed": "火曜",
+        "note": "夜スタンプ可"
       }
     },
     {
@@ -464,15 +510,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8207935,
+          35.43208167
         ]
       },
       "properties": {
         "id": "spot25",
         "name": "こーみーハウス",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "8:30〜16:30",
         "closed": "不定休",
         "note": ""
@@ -483,18 +531,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.82007,
+          35.43207427
         ]
       },
       "properties": {
         "id": "spot26",
-        "name": "けずりひ たいら少納言.G",
-        "category": "",
-        "stampType": [],
+        "name": "けずりひ たいら少納言.G(6月〜9月営業)\n",
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "11:00〜17:00",
         "closed": "水・木",
-        "note": "PDF時点で6月中旬から営業"
+        "note": " 水・木定休、6月～9月夏期限定営業"
       }
     },
     {
@@ -502,15 +552,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.7972528,
+          35.42625039
         ]
       },
       "properties": {
         "id": "spot27",
         "name": "おうち居酒屋いろり",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "17:00〜23:00",
         "closed": "月曜",
         "note": ""
@@ -521,15 +573,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8464954,
+          35.45541323
         ]
       },
       "properties": {
         "id": "spot28",
         "name": "【宿】米小旅館",
-        "category": "",
-        "stampType": [],
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
         "hours": "",
         "closed": "年末年始",
         "note": "宿泊必須"
@@ -540,16 +594,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8314867,
+          35.4385327
         ]
       },
       "properties": {
         "id": "spot29",
         "name": "【宿】古民家ゲストハウス倉吉",
-        "category": "",
-        "stampType": [],
-        "hours": "10:00〜22:00",
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "",
         "closed": "無休",
         "note": "宿泊必須"
       }
@@ -559,15 +615,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8268836,
+          35.42978291
         ]
       },
       "properties": {
         "id": "spot30",
         "name": "【宿】松原旅館",
-        "category": "",
-        "stampType": [],
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
         "hours": "",
         "closed": "無休",
         "note": "宿泊必須"
@@ -578,15 +636,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8269605,
+          35.43146278
         ]
       },
       "properties": {
         "id": "spot31",
         "name": "【宿】石井旅館",
-        "category": "",
-        "stampType": [],
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
         "hours": "",
         "closed": "不定休",
         "note": "食事のみ可（要予約）"
@@ -597,18 +657,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8242699,
+          35.43380796
         ]
       },
       "properties": {
         "id": "spot32",
         "name": "【宿】福助旅館",
-        "category": "",
-        "stampType": [],
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
         "hours": "",
         "closed": "",
-        "note": "宿泊必須（PDFに記載なし）"
+        "note": "宿泊必須"
       }
     },
     {
@@ -616,15 +678,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8217136,
+          35.43197583
         ]
       },
       "properties": {
         "id": "spot33",
         "name": "【宿】まきた旅館",
-        "category": "",
-        "stampType": [],
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
         "hours": "",
         "closed": "不定休",
         "note": "食事のみ可（要予約）"
@@ -635,16 +699,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.817441,
+          35.43119462
         ]
       },
       "properties": {
         "id": "spot34",
         "name": "【宿】松風荘旅館",
-        "category": "",
-        "stampType": [],
-        "hours": "9:00〜21:00",
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "",
         "closed": "不定休",
         "note": "宿泊必須"
       }
@@ -654,15 +720,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.7638378,
+          35.36346031
         ]
       },
       "properties": {
         "id": "spot35",
         "name": "関の湯共同温泉",
-        "category": "",
-        "stampType": [],
+        "category": "onsen",
+        "stampType": [
+          "eat"
+        ],
         "hours": "7:00〜20:00",
         "closed": "毎月1、15日",
         "note": "入浴利用必須"
@@ -673,15 +741,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8481929,
+          35.45437619
         ]
       },
       "properties": {
         "id": "spot36",
         "name": "grimon グリモン",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "18:00〜22:00",
         "closed": "月曜",
         "note": "夜のみ営業"
@@ -692,18 +762,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8478794,
+          35.45299584
         ]
       },
       "properties": {
         "id": "spot37",
         "name": "KURAYOSHI.exe",
-        "category": "",
-        "stampType": [],
+        "category": "spot",
+        "stampType": [
+          "eat"
+        ],
         "hours": "17:00〜",
         "closed": "月〜水曜",
-        "note": "夜のみ営業（終了時間の記載なし）"
+        "note": "夜のみ営業※要確認"
       }
     },
     {
@@ -711,15 +783,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8262804,
+          35.43264062
         ]
       },
       "properties": {
         "id": "spot38",
         "name": "パブハウスガン",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "17:00〜24:00",
         "closed": "月曜",
         "note": "夜のみ営業"
@@ -730,15 +804,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8236853,
+          35.43293087
         ]
       },
       "properties": {
         "id": "spot39",
         "name": "居酒屋上月",
-        "category": "",
-        "stampType": [],
+        "category": "food",
+        "stampType": [
+          "eat"
+        ],
         "hours": "18:00〜23:00",
         "closed": "不定休",
         "note": "夜のみ営業"
@@ -749,15 +825,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8460356,
+          35.45967903
         ]
       },
       "properties": {
         "id": "spot40",
         "name": "日ノ丸自動車倉吉営業所",
-        "category": "",
-        "stampType": [],
+        "category": "spot",
+        "stampType": [
+          "eat"
+        ],
         "hours": "8:30〜18:00",
         "closed": "無休",
         "note": ""
@@ -768,16 +846,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8491154,
+          35.45439659
         ]
       },
       "properties": {
         "id": "spot41",
-        "name": "倉吉観光物産館",
-        "category": "",
-        "stampType": [],
-        "hours": "平日9:30〜13:00／土日祝9:30〜15:00",
+        "name": "倉吉観光物産館　長生堂",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "平日9:30〜18:00／土日祝9:30〜15:00",
         "closed": "無休",
         "note": ""
       }
@@ -787,17 +867,19 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8468945,
+          35.44850061
         ]
       },
       "properties": {
         "id": "spot42",
         "name": "SUIKO WORK CAMP",
-        "category": "",
-        "stampType": [],
+        "category": "spot",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜17:30",
-        "closed": "日・祝",
+        "closed": "日・祝※ホームページ要確認",
         "note": ""
       }
     },
@@ -806,16 +888,18 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8393233,
+          35.43830885
         ]
       },
       "properties": {
         "id": "spot43",
         "name": "スーパーヒーロー",
-        "category": "",
-        "stampType": [],
-        "hours": "10:00〜26:00",
+        "category": "spot",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "日～木10:00〜26:00,金土祝10:00～28:00",
         "closed": "無休",
         "note": ""
       }
@@ -825,15 +909,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8360761,
+          35.43503092
         ]
       },
       "properties": {
         "id": "spot44",
         "name": "ビーワイヨシダ",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜19:00",
         "closed": "無休",
         "note": ""
@@ -844,15 +930,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.835993,
+          35.43494241
         ]
       },
       "properties": {
         "id": "spot45",
         "name": "farm garden チトのゆび",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜18:30",
         "closed": "火曜",
         "note": ""
@@ -863,15 +951,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8459684,
+          35.42723912
         ]
       },
       "properties": {
         "id": "spot46",
         "name": "福井園芸店",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜17:00",
         "closed": "水曜",
         "note": ""
@@ -882,15 +972,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8298878,
+          35.43303326
         ]
       },
       "properties": {
         "id": "spot47",
         "name": "トミヤ楽器店",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜19:00",
         "closed": "月曜",
         "note": ""
@@ -901,15 +993,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8288209,
+          35.43308015
         ]
       },
       "properties": {
         "id": "spot48",
         "name": "brass",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜19:00",
         "closed": "月曜・第3火曜",
         "note": ""
@@ -920,15 +1014,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8269919,
+          35.43462767
         ]
       },
       "properties": {
         "id": "spot49",
-        "name": "Ha.Pi.Ra",
-        "category": "",
-        "stampType": [],
+        "name": "ＨａｐｐｙＲｕｓｈ Ha.Pi.Ra(ハピラ)",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜19:00",
         "closed": "不定休",
         "note": ""
@@ -939,15 +1035,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8259716,
+          35.43162592
         ]
       },
       "properties": {
         "id": "spot50",
         "name": "はこた人形工房",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜17:00",
         "closed": "水曜",
         "note": ""
@@ -958,72 +1056,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8246655,
+          35.43169906
         ]
       },
       "properties": {
         "id": "spot51",
         "name": "元帥酒造",
-        "category": "",
-        "stampType": [],
-        "hours": "9:00〜17:00",
-        "closed": "無休",
-        "note": ""
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "id": "spot52",
-        "name": "まととや",
-        "category": "",
-        "stampType": [],
-        "hours": "12:00〜16:00",
-        "closed": "火・水",
-        "note": ""
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "id": "spot53",
-        "name": "ギフトやぶき",
-        "category": "",
-        "stampType": [],
-        "hours": "9:00〜17:00",
-        "closed": "無休",
-        "note": ""
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          0,
-          0
-        ]
-      },
-      "properties": {
-        "id": "spot54",
-        "name": "桑田醤油醸造場",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜17:30",
         "closed": "無休",
         "note": ""
@@ -1034,17 +1077,19 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8245515,
+          35.43159775
         ]
       },
       "properties": {
-        "id": "spot55",
-        "name": "倉吉ふるさと工芸館",
-        "category": "",
-        "stampType": [],
-        "hours": "10:00〜16:00",
-        "closed": "水曜",
+        "id": "spot52",
+        "name": "まととや",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "12:00〜16:00",
+        "closed": "火・水",
         "note": ""
       }
     },
@@ -1053,17 +1098,19 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8242912,
+          35.43160868
         ]
       },
       "properties": {
-        "id": "spot56",
-        "name": "ハンドメイドショップ SION",
-        "category": "",
-        "stampType": [],
-        "hours": "9:30〜17:30",
-        "closed": "水曜",
+        "id": "spot53",
+        "name": "ギフトやぶき",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "9:00〜18:00",
+        "closed": "無休",
         "note": ""
       }
     },
@@ -1072,15 +1119,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8239867,
+          35.43173647
         ]
       },
       "properties": {
-        "id": "spot57",
-        "name": "赤瓦一号館（1階長生堂）",
-        "category": "",
-        "stampType": [],
+        "id": "spot54",
+        "name": "桑田醤油醸造場",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜17:00",
         "closed": "無休",
         "note": ""
@@ -1091,15 +1140,80 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8236363,
+          35.43149927
+        ]
+      },
+      "properties": {
+        "id": "spot55",
+        "name": "倉吉ふるさと工芸館",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "10:00〜16:00",
+        "closed": "水曜",
+        "note": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.8231802,
+          35.43183175
+        ]
+      },
+      "properties": {
+        "id": "spot56",
+        "name": "ハンドメイドショップ SION",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "9:00〜18:00",
+        "closed": "水曜",
+        "note": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.8241754,
+          35.43253567
+        ]
+      },
+      "properties": {
+        "id": "spot57",
+        "name": "赤瓦一号館（1階長生堂）",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "9:00〜17:00",
+        "closed": "無休",
+        "note": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.8241896,
+          35.43253382
         ]
       },
       "properties": {
         "id": "spot58",
         "name": "ふみ子の手作り工房",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜16:00",
         "closed": "不定休",
         "note": ""
@@ -1110,18 +1224,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.825099,
+          35.43414189
         ]
       },
       "properties": {
         "id": "spot59",
         "name": "ビジネスインたけのや",
-        "category": "",
-        "stampType": [],
+        "category": "hotel",
+        "stampType": [
+          "eat"
+        ],
         "hours": "",
         "closed": "",
-        "note": "PDFに記載なし"
+        "note": ""
       }
     },
     {
@@ -1129,15 +1245,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8238904,
+          35.43315716
         ]
       },
       "properties": {
         "id": "spot60",
         "name": "小林薬局 本店",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜18:00",
         "closed": "日・祝日、お盆・年末年始",
         "note": ""
@@ -1148,15 +1266,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8223417,
+          35.43329593
         ]
       },
       "properties": {
         "id": "spot61",
         "name": "ブライダルハウスとさき",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜19:00",
         "closed": "水曜",
         "note": ""
@@ -1167,15 +1287,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8210539,
+          35.43190817
         ]
       },
       "properties": {
         "id": "spot62",
         "name": "花はあんどう",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "8:30〜17:30",
         "closed": "年始1/1〜1/3",
         "note": ""
@@ -1186,15 +1308,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8204114,
+          35.4319815
         ]
       },
       "properties": {
         "id": "spot63",
         "name": "豊田家住宅",
-        "category": "",
-        "stampType": [],
+        "category": "spot",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜16:00",
         "closed": "木曜",
         "note": ""
@@ -1205,15 +1329,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8200171,
+          35.43205984
         ]
       },
       "properties": {
         "id": "spot64",
         "name": "おもちゃと駄菓子のたいら",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜18:00",
         "closed": "水曜",
         "note": ""
@@ -1224,15 +1350,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8198117,
+          35.43265906
         ]
       },
       "properties": {
         "id": "spot65",
         "name": "倉吉淀屋",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜17:00",
         "closed": "木曜",
         "note": ""
@@ -1243,15 +1371,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8167161,
+          35.43106758
         ]
       },
       "properties": {
         "id": "spot66",
         "name": "花こまち 谷本種苗園芸",
-        "category": "",
-        "stampType": [],
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
         "hours": "8:30〜18:30",
         "closed": "無休",
         "note": ""
@@ -1262,18 +1392,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8162646,
+          35.43039049
         ]
       },
       "properties": {
         "id": "spot67",
         "name": "いなしま酒店",
-        "category": "",
-        "stampType": [],
-        "hours": "",
+        "category": "shop",
+        "stampType": [
+          "eat"
+        ],
+        "hours": "10:00～13:00,\n14:00～19:00",
         "closed": "",
-        "note": "店舗の外にスタンプ有り（PDFに記載なし）"
+        "note": "店舗の外にスタンプ有り"
       }
     },
     {
@@ -1281,15 +1413,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8152442,
+          35.42929847
         ]
       },
       "properties": {
         "id": "spot68",
         "name": "円形劇場くらよしフィギュアミュージアム",
-        "category": "",
-        "stampType": [],
+        "category": "spot",
+        "stampType": [
+          "eat"
+        ],
         "hours": "9:00〜17:00（7〜9月は9:00〜18:00）",
         "closed": "無休",
         "note": ""
@@ -1300,15 +1434,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.8184651,
+          35.42666118
         ]
       },
       "properties": {
         "id": "spot69",
         "name": "打吹山長谷寺",
-        "category": "",
-        "stampType": [],
+        "category": "spot",
+        "stampType": [
+          "eat"
+        ],
         "hours": "8:00〜17:00",
         "closed": "無休",
         "note": ""
@@ -1319,15 +1455,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          0,
-          0
+          133.7600931,
+          35.36430954
         ]
       },
       "properties": {
         "id": "spot70",
         "name": "せきがね湯命館",
-        "category": "",
-        "stampType": [],
+        "category": "onsen",
+        "stampType": [
+          "eat"
+        ],
         "hours": "10:00〜21:00",
         "closed": "月曜",
         "note": ""
