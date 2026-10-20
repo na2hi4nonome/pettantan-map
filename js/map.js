@@ -8,7 +8,7 @@ const map = L.map("map").setView([35.487, 133.825], 14);
 
 // ===== 2. 地図タイル（背景画像）の読み込み =====
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,  // OSMが提供する最大ズーム。超えてもボケるだけなので制限する
+  maxZoom: 19, // OSMが提供する最大ズーム。超えてもボケるだけなので制限する
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
 }).addTo(map);
@@ -20,13 +20,14 @@ async function loadSpots() {
   try {
     const response = await fetch("data/spots.geojson");
     if (!response.ok) {
-      throw new Error(`データの読み込みに失敗しました（HTTP ${response.status}）`);
+      throw new Error(
+        `データの読み込みに失敗しました（HTTP ${response.status}）`,
+      );
     }
     const data = await response.json();
 
     totalShops = data.features.length;
     updateMapProgress();
-
 
     // L.geoJSON：GeoJSONを丸ごと「レイヤー」に変換する
     spotLayer = L.geoJSON(data, {
@@ -34,48 +35,51 @@ async function loadSpots() {
       pointToLayer: (feature, latlng) => {
         return L.marker(latlng, {
           icon: makeIcon(feature.properties.category),
-          title: feature.properties.name,  // マウスを乗せると出るツールチップ
+          title: feature.properties.name, // マウスを乗せると出るツールチップ
         });
       },
       // 生成されたマーカー1個ずつに「付随する動作」を取り付ける
       onEachFeature: (feature, layer) => {
-  const p = feature.properties;
+        const p = feature.properties;
 
-  // 文字列の代わりに「関数」を渡すと、開くたびに最新のHTMLを作り直してくれる
-  layer.bindPopup(() => popupHTML(p, layer.getLatLng()), { maxWidth: 280 });
+        // 文字列の代わりに「関数」を渡すと、開くたびに最新のHTMLを作り直してくれる
+        layer.bindPopup(() => popupHTML(p, layer.getLatLng()), { maxWidth: 280 });
 
-  // ポップアップが「開かれた瞬間」にLeafletが呼ぶコールバック
-  layer.on("popupopen", () => {
-    const btn = document.querySelector(".leaflet-popup-content .stamp-btn");
-    if (!btn) return;
+        // ポップアップが開かれた瞬間にLeafletが呼ぶコールバック。
+        // e（イベントオブジェクト）には「開かれたポップアップ自身」が入っている
+        layer.on("popupopen", (e) => {
+          const popupEl = e.popup.getElement();  // このポップアップ自身のDOM（器）
 
-    // onclickは「代入」。何度開いても1個だけ上書きされる（addEventListenerだと積み重なる）
-    btn.onclick = () => {
-      toggleStamp(p.id);
-      updateStampBtn(btn, p.id);
-      updateMapProgress();
-    };
-  });
-},
+          // ボタン個別ではなく「ポップアップの器」に処理を取り付ける。
+          // onclickは代入なので、何度開いても1個だけ（積み重ならない）
+          popupEl.onclick = (ev) => {
+            // 「押された場所」がぺったんボタンかどうかは、クリックされた瞬間に判定
+            const btn = ev.target.closest(".stamp-btn");
+            if (!btn) return;
 
+            toggleStamp(p.id);
+            updateStampBtn(btn, p.id);
+            updateMapProgress();
+          };
+        });
+      },
     }).addTo(map);
 
     // ===== 4. 深いリンク対応（map.html?spot=sample01 で直接開く） =====
     // ※fetchの完了後に実行したいので、この位置にあるのが重要
     const spotId = new URLSearchParams(location.search).get("spot");
     if (spotId) {
-      const target = spotLayer.getLayers().find(
-        (layer) => layer.feature.properties.id === spotId
-      );
+      const target = spotLayer
+        .getLayers()
+        .find((layer) => layer.feature.properties.id === spotId);
       if (target) {
-        map.setView(target.getLatLng(), 16);  // 即座に移動（アニメなし・確実）
+        map.setView(target.getLatLng(), 16); // 即座に移動（アニメなし・確実）
         target.openPopup();
       } else {
         console.warn(`spot=${spotId} に一致する店舗がありません`);
       }
     }
-    applyFilter();  // データが揃ったので、初期状態の「表示 X / 6 店」を出す
-
+    applyFilter(); // データが揃ったので、初期状態の「表示 X / 6 店」を出す
   } catch (error) {
     errorBox.textContent = `マップデータを読み込めませんでした：${error.message}`;
     errorBox.hidden = false;
@@ -85,20 +89,20 @@ async function loadSpots() {
 
 // ===== カテゴリからマーカーのアイコンを作る =====
 function makeIcon(category) {
-  const emoji = CATEGORY_ICONS[category] ?? "📍";  // 未知のカテゴリの保険
+  const emoji = CATEGORY_ICONS[category] ?? "📍"; // 未知のカテゴリの保険
   return L.divIcon({
-    className: "pin-wrap",  // Leaflet既定のクラス名を上書き（白い枠を消すため）
+    className: "pin-wrap", // Leaflet既定のクラス名を上書き（白い枠を消すため）
     html: `<div class="pin pin-${category}">${emoji}</div>`,
     iconSize: [32, 32],
-    iconAnchor: [16, 16],   // アイコンの「どの点」を座標に合わせるか。円形なので中心
-    popupAnchor: [0, -16],  // ポップアップを出す位置（アイコン中心から上16px）
+    iconAnchor: [16, 16], // アイコンの「どの点」を座標に合わせるか。円形なので中心
+    popupAnchor: [0, -16], // ポップアップを出す位置（アイコン中心から上16px）
   });
 }
 
 // ===== ポップアップの中身 =====
 function popupHTML(p, latlng) {
   const gmap = `https://www.google.com/maps/search/?api=1&query=${latlng.lat},${latlng.lng}`;
-  const done = isStamped(p.id);  // ← ここでも現在の状態を焼き込む
+  const done = isStamped(p.id); // ← ここでも現在の状態を焼き込む
   return `
     <strong class="popup-name">${p.name}</strong>
     <p class="popup-cat">${CATEGORY_LABELS[p.category] ?? p.category}</p>
@@ -117,7 +121,6 @@ function updateMapProgress() {
   el.textContent = `ぺったん ${stampedCount()} / ${totalShops}`;
 }
 
-
 loadSpots();
 
 // ===== 5. 現在地表示 =====
@@ -128,12 +131,11 @@ const locateBtn = document.getElementById("locate-btn");
 // 現在地マーカーを入れておく箱。null = 「まだ何も無い」の意味
 let myLocationLayer = null;
 
-let totalShops = 0;  // 店舗の総数。データ読み込み後に判明する
+let totalShops = 0; // 店舗の総数。データ読み込み後に判明する
 
-let spotLayer = null;  // 店舗ピン全体のグループ。loadSpotsの中で代入する
+let spotLayer = null; // 店舗ピン全体のグループ。loadSpotsの中で代入する
 // 現在の絞り込み条件（list.jsと同じ形にする）
 const filterState = { category: "all", stampType: "all", text: "" };
-
 
 // 「このボタンがクリックされたらshowMyLocationを呼んで」──これもコールバック
 locateBtn.addEventListener("click", showMyLocation);
@@ -151,8 +153,8 @@ function showMyLocation() {
 
   // 位置取得をお願いする。結果は後から、成功/失敗どちらか1本のコールバックで届く
   navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError, {
-    enableHighAccuracy: true,  // スマホのGPSを優先（精度↑・電池消費と引き換え）
-    timeout: 10000,            // 10秒たっても取れなければ失敗扱い
+    enableHighAccuracy: true, // スマホのGPSを優先（精度↑・電池消費と引き換え）
+    timeout: 10000, // 10秒たっても取れなければ失敗扱い
   });
 }
 
@@ -162,8 +164,8 @@ function onLocationSuccess(position) {
   locateBtn.textContent = "📍 現在地";
 
   // 結果は position.coords の中。緯度経度が「別々の項目」なので順序の罠ナシ
-  const lat = position.coords.latitude;      // 緯度
-  const lng = position.coords.longitude;     // 経度
+  const lat = position.coords.latitude; // 緯度
+  const lng = position.coords.longitude; // 経度
   const accuracy = position.coords.accuracy; // 誤差の目安（メートル）
 
   // 前回の現在地が残っていたら削除（クリックのたびに重なるのを防ぐ）
@@ -173,14 +175,16 @@ function onLocationSuccess(position) {
 
   // 点（ピン）＋精度を表す円 を1グループにまとめて地図に載せる
   myLocationLayer = L.layerGroup([
-    L.circleMarker([lat, lng], {   // radius は「ピクセル」単位
+    L.circleMarker([lat, lng], {
+      // radius は「ピクセル」単位
       radius: 8,
       color: "#4361ee",
       fillColor: "#4361ee",
       fillOpacity: 1,
       weight: 3,
     }),
-    L.circle([lat, lng], {         // radius は「メートル」単位（実世界の大きさ）
+    L.circle([lat, lng], {
+      // radius は「メートル」単位（実世界の大きさ）
       radius: accuracy,
       color: "#4361ee",
       fillColor: "#4361ee",
@@ -189,7 +193,7 @@ function onLocationSuccess(position) {
     }),
   ]).addTo(map);
 
-  map.flyTo([lat, lng], 16);  // アニメ付きで現在地へ移動
+  map.flyTo([lat, lng], 16); // アニメ付きで現在地へ移動
 }
 
 // 取得【失敗】のときだけブラウザが呼ぶコールバック
@@ -207,18 +211,24 @@ function onLocationError(error) {
 
 // ===== 6. 絞り込み・検索 =====
 function setupMapFilters() {
-  document.getElementById("category-chips").innerHTML = chipGroupHTML("category", CATEGORY_LABELS);
-  document.getElementById("stamp-chips").innerHTML = chipGroupHTML("stamp", STAMP_LABELS);
+  document.getElementById("category-chips").innerHTML = chipGroupHTML(
+    "category",
+    CATEGORY_LABELS,
+  );
+  document.getElementById("stamp-chips").innerHTML = chipGroupHTML(
+    "stamp",
+    STAMP_LABELS,
+  );
 
   // ★追加：パネルの開閉
   const toggleBtn = document.getElementById("filter-toggle");
   const panel = document.getElementById("filter-panel");
   toggleBtn.addEventListener("click", () => {
-    panel.hidden = !panel.hidden;      // 開⇔閉を切り替える
+    panel.hidden = !panel.hidden; // 開⇔閉を切り替える
     const open = !panel.hidden;
     toggleBtn.textContent = open ? "絞り込み ▴" : "絞り込み ▾";
     toggleBtn.setAttribute("aria-expanded", open);
-    map.invalidateSize();  // ★レイアウトが変わったことをLeafletに伝える
+    map.invalidateSize(); // ★レイアウトが変わったことをLeafletに伝える
   });
 
   document.querySelectorAll("#category-chips .chip").forEach((chip) => {
@@ -244,15 +254,15 @@ function setupMapFilters() {
 
 // 条件に合うピンだけを地図に残す
 function applyFilter() {
-  if (!spotLayer) return;  // データ読み込み前なら何もしない
+  if (!spotLayer) return; // データ読み込み前なら何もしない
 
   let shown = 0;
   spotLayer.getLayers().forEach((layer) => {
     if (matchesFilter(layer.feature.properties, filterState)) {
-      map.addLayer(layer);     // 条件OK → 地図に【貼る】
+      map.addLayer(layer); // 条件OK → 地図に【貼る】
       shown++;
     } else {
-      map.removeLayer(layer);  // 条件NG → 地図から【剥がす】
+      map.removeLayer(layer); // 条件NG → 地図から【剥がす】
     }
   });
 
