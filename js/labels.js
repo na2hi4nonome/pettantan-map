@@ -29,6 +29,9 @@ const CATEGORY_ICONS = {
 // スタンプ条件 → バッジHTML（両ページで使用する共通関数）
 function badgeHTML(stampTypes) {
   return stampTypes
-    .map((type) => `<span class="badge badge-${type}">${STAMP_LABELS[type] ?? type}</span>`)
+    .map(
+      (type) =>
+        `<span class="badge badge-${type}">${STAMP_LABELS[type] ?? type}</span>`,
+    )
     .join("");
 }

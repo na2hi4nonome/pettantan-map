@@ -1,132 +1,186 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <!-- これがないとスマホでPC用表示になり文字が小さくなる。必須 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="img/stamp.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="img/stamp.png" />
     <title>食べて歩いてぺったんたん 非公式マップ</title>
-    <meta name="description" content="鳥取県倉吉市のスタンプラリー「食べて歩いてぺったんたん」の参加店舗を地図と一覧で確認できる非公式ファンサイトです。">
-    <meta property="og:title" content="食べて歩いてぺったんたん 非公式マップ">
-    <meta property="og:description" content="鳥取県倉吉市のスタンプラリー「食べて歩いてぺったんたん」の参加店舗を、地図と一覧で確認できる非公式ファンサイトです。">
-    <meta property="og:image" content="https://na2hi4nonome.github.io/pettantan-map/img/stamp.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
+    <meta
+      name="description"
+      content="鳥取県倉吉市のスタンプラリー「食べて歩いてぺったんたん」の参加店舗を地図と一覧で確認できる非公式ファンサイトです。"
+    />
+    <meta property="og:title" content="食べて歩いてぺったんたん 非公式マップ" />
+    <meta
+      property="og:description"
+      content="鳥取県倉吉市のスタンプラリー「食べて歩いてぺったんたん」の参加店舗を、地図と一覧で確認できる非公式ファンサイトです。"
+    />
+    <meta
+      property="og:image"
+      content="https://na2hi4nonome.github.io/pettantan-map/img/stamp.png"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
     <!-- defer：HTMLの解析をブロックせず、読み込み完了後にJSを実行する -->
     <script src="js/labels.js" defer></script>
     <script src="js/stamps.js" defer></script>
     <script src="js/filter.js" defer></script>
     <script src="js/list.js" defer></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <header class="site-header">
-        <div class="container">
-            <p class="site-title"><a href="index.html">ぺったんたん非公式マップ</a><span class="unofficial">非公式</span></p>
-            <nav class="site-nav">
-                <ul>
-                    <li><a href="#about">概要</a></li>
-                    <li><a href="#howto">進め方</a></li>
-                    <li><a href="#hinabita">ひなビタ♪とは</a></li>
-                    <li><a href="#shops">参加店舗</a></li>
-                </ul>
-            </nav>
-        </div>
+      <div class="container">
+        <p class="site-title">
+          <a href="index.html">ぺったんたん非公式マップ</a
+          ><span class="unofficial">非公式</span>
+        </p>
+        <nav class="site-nav">
+          <ul>
+            <li><a href="#about">概要</a></li>
+            <li><a href="#howto">進め方</a></li>
+            <li><a href="#hinabita">ひなビタ♪とは</a></li>
+            <li><a href="#shops">参加店舗</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <main>
+      <!-- ===== 概要 ===== -->
+      <section id="about" class="hero">
+        <div class="container">
+          <h1>
+            食べて歩いて<span class="accent">ぺったんたん</span
+            ><br />非公式マップ
+          </h1>
+          <p class="hero-lead">
+            鳥取県倉吉市で開催中のスタンプラリー「食べて歩いてぺったんたん」の参加店舗を、
+            地図と一覧でわかりやすくまとめたファンサイトです。
+          </p>
+          <p class="hero-period">
+            開催期間：2026年5月30日（土）〜2027年3月31日（水）
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="map.html"
+              >ぺったんたんマップを開く →</a
+            >
+          </div>
+          <p class="alert">
+            ※本サイトはファンが作成した非公式サイトです。スタンプラリーの最新・正確な情報は
+            <a href="http://kurayoshi-moks.net/" target="_blank" rel="noopener"
+              >公式サイト（倉吉ひなビタ♪応援団）</a
+            >
+            を必ずご確認ください。
+          </p>
+        </div>
+      </section>
 
-        <!-- ===== 概要 ===== -->
-        <section id="about" class="hero">
-            <div class="container">
-                <h1>食べて歩いて<span class="accent">ぺったんたん</span><br>非公式マップ</h1>
-                <p class="hero-lead">
-                    鳥取県倉吉市で開催中のスタンプラリー「食べて歩いてぺったんたん」の参加店舗を、
-                    地図と一覧でわかりやすくまとめたファンサイトです。
-                </p>
-                <p class="hero-period">開催期間：2026年5月30日（土）〜2027年3月31日（水）</p>
-                <div class="hero-actions">
-                    <a class="btn btn-primary" href="map.html">ぺったんたんマップを開く →</a>
-                </div>
-                <p class="alert">
-                    ※本サイトはファンが作成した非公式サイトです。スタンプラリーの最新・正確な情報は
-                    <a href="http://kurayoshi-moks.net/" target="_blank" rel="noopener">公式サイト（倉吉ひなビタ♪応援団）</a>
-                    を必ずご確認ください。
-                </p>
-            </div>
-        </section>
+      <!-- ===== 進め方 ===== -->
+      <section id="howto" class="section">
+        <div class="container">
+          <h2>スタンプラリーの進め方</h2>
+          <ol class="howto-steps">
+            <li>
+              台紙を手に入れる（JR倉吉駅内観光案内所・倉吉白壁土蔵群観光案内所・参加店舗などで配布）
+            </li>
+            <li>
+              参加店舗でスタンプをぺったんたん！条件は店舗ごとに異なります
+            </li>
+            <li>スタンプがたまったら、倉吉白壁土蔵群観光案内所で景品と交換</li>
+          </ol>
+          <h3>スタンプの種類</h3>
+          <ul class="stamp-types">
+            <li>
+              <strong>食べてぺったん</strong>：店内でお食事またはテイクアウト
+            </li>
+            <li><strong>訪れてぺったん</strong>：お店を訪問</li>
+            <li>
+              <strong>夜に食べてぺったん</strong
+              >：夜の営業時間にお食事またはテイクアウト
+            </li>
+            <li>
+              <strong>宿泊・入浴でぺったん</strong
+              >：条件は施設ごとに異なるので台紙で確認
+            </li>
+          </ul>
+        </div>
+      </section>
 
-        <!-- ===== 進め方 ===== -->
-        <section id="howto" class="section">
-            <div class="container">
-                <h2>スタンプラリーの進め方</h2>
-                <ol class="howto-steps">
-                    <li>台紙を手に入れる（JR倉吉駅内観光案内所・倉吉白壁土蔵群観光案内所・参加店舗などで配布）</li>
-                    <li>参加店舗でスタンプをぺったんたん！条件は店舗ごとに異なります</li>
-                    <li>スタンプがたまったら、倉吉白壁土蔵群観光案内所で景品と交換</li>
-                </ol>
-                <h3>スタンプの種類</h3>
-                <ul class="stamp-types">
-                    <li><strong>食べてぺったん</strong>：店内でお食事またはテイクアウト</li>
-                    <li><strong>訪れてぺったん</strong>：お店を訪問</li>
-                    <li><strong>夜に食べてぺったん</strong>：夜の営業時間にお食事またはテイクアウト</li>
-                    <li><strong>宿泊・入浴でぺったん</strong>：条件は施設ごとに異なるので台紙で確認</li>
-                </ul>
-            </div>
-        </section>
+      <!-- ===== ひなビタ♪紹介 ===== -->
+      <section id="hinabita" class="section section-alt">
+        <div class="container">
+          <h2>「ひなビタ♪」とは</h2>
+          <p>
+            「ひなビタ♪」はコナミデジタルエンタテインメントの音楽×キャラクタープロジェクト。
+            物語の舞台のモデルになった鳥取県倉吉市とはコラボが続いており、市内各所に関連スポットがあります。
+          </p>
+          <p>
+            このスタンプラリーは、倉吉ひなビタ♪応援団が中心となって開催されているものです。
+          </p>
+          <ul class="link-list">
+            <li>
+              <a
+                href="https://www.konami.com/hinabita/"
+                target="_blank"
+                rel="noopener"
+                >ひなビタ♪ 公式サイト</a
+              >
+            </li>
+            <li>
+              <a
+                href="http://kurayoshi-moks.net/"
+                target="_blank"
+                rel="noopener"
+                >倉吉ひなビタ♪応援団（イベント情報）</a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
 
-        <!-- ===== ひなビタ♪紹介 ===== -->
-        <section id="hinabita" class="section section-alt">
-            <div class="container">
-                <h2>「ひなビタ♪」とは</h2>
-                <p>
-                    「ひなビタ♪」はコナミデジタルエンタテインメントの音楽×キャラクタープロジェクト。
-                    物語の舞台のモデルになった鳥取県倉吉市とはコラボが続いており、市内各所に関連スポットがあります。
-                </p>
-                <p>このスタンプラリーは、倉吉ひなビタ♪応援団が中心となって開催されているものです。</p>
-                <ul class="link-list">
-                    <li><a href="https://www.konami.com/hinabita/" target="_blank" rel="noopener">ひなビタ♪ 公式サイト</a></li>
-                    <li><a href="http://kurayoshi-moks.net/" target="_blank" rel="noopener">倉吉ひなビタ♪応援団（イベント情報）</a></li>
-                </ul>
-            </div>
-        </section>
+      <!-- ===== 店舗一覧（中身はlist.jsが生成する） ===== -->
+      <section id="shops" class="section">
+        <div class="container">
+          <h2>参加店舗一覧</h2>
 
-        <!-- ===== 店舗一覧（中身はlist.jsが生成する） ===== -->
-        <section id="shops" class="section">
-            <div class="container">
-                <h2>参加店舗一覧</h2>
-        
-                <!-- 絞り込み・検索UI。チップの中身はJSが辞書から生成する -->
-                <div class="filter-box">
-                    <input type="search" id="search-box" class="search-box" placeholder="店名で検索…">
-                    <div class="chip-row" id="category-chips"></div>
-                    <div class="chip-row" id="stamp-chips"></div>
-                </div>
-        
-                <div id="shop-list">
-                    <p>読み込み中…</p>
-                </div>
-            </div>
-        </section>
+          <!-- 絞り込み・検索UI。チップの中身はJSが辞書から生成する -->
+          <div class="filter-box">
+            <input
+              type="search"
+              id="search-box"
+              class="search-box"
+              placeholder="店名で検索…"
+            />
+            <div class="chip-row" id="category-chips"></div>
+            <div class="chip-row" id="stamp-chips"></div>
+          </div>
 
-
+          <div id="shop-list">
+            <p>読み込み中…</p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container">
-            <p>本サイトは「食べて歩いてぺったんたん」を応援するファンによる非公式サイトです。公式・運営者・参加各店とは一切関係ありません。</p>
-            <p>店舗情報は独自にまとめたもので、変更されている場合があります。お出かけ前に公式情報・各店の案内をご確認ください。</p>
-            <p class="copyright">© 2026 ぺったんたん非公式マップ（学習用に作成）</p>
-        </div>
+      <div class="container">
+        <p>
+          本サイトは「食べて歩いてぺったんたん」を応援するファンによる非公式サイトです。公式・運営者・参加各店とは一切関係ありません。
+        </p>
+        <p>
+          店舗情報は独自にまとめたもので、変更されている場合があります。お出かけ前に公式情報・各店の案内をご確認ください。
+        </p>
+        <p class="copyright">© 2026 ぺったんたん非公式マップ（学習用に作成）</p>
+      </div>
     </footer>
-
-</body>
-
+  </body>
 </html>

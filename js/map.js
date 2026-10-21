@@ -43,12 +43,14 @@ async function loadSpots() {
         const p = feature.properties;
 
         // 文字列の代わりに「関数」を渡すと、開くたびに最新のHTMLを作り直してくれる
-        layer.bindPopup(() => popupHTML(p, layer.getLatLng()), { maxWidth: 280 });
+        layer.bindPopup(() => popupHTML(p, layer.getLatLng()), {
+          maxWidth: 280,
+        });
 
         // ポップアップが開かれた瞬間にLeafletが呼ぶコールバック。
         // e（イベントオブジェクト）には「開かれたポップアップ自身」が入っている
         layer.on("popupopen", (e) => {
-          const popupEl = e.popup.getElement();  // このポップアップ自身のDOM（器）
+          const popupEl = e.popup.getElement(); // このポップアップ自身のDOM（器）
 
           // ボタン個別ではなく「ポップアップの器」に処理を取り付ける。
           // onclickは代入なので、何度開いても1個だけ（積み重ならない）

@@ -10,10 +10,10 @@ const STAMP_KEY = "pettan-stamps";
 function getStampedIds() {
   try {
     const raw = localStorage.getItem(STAMP_KEY);
-    return raw ? JSON.parse(raw) : [];  // 保存がまだ無ければ空配列
+    return raw ? JSON.parse(raw) : []; // 保存がまだ無ければ空配列
   } catch (error) {
     console.error("保存データが壊れていたので0個扱いにします", error);
-    return [];  // 壊れていてもサイトが止まらない保険
+    return []; // 壊れていてもサイトが止まらない保険
   }
 }
 function resetStamps() {
@@ -32,9 +32,9 @@ function toggleStamp(id) {
   const ids = getStampedIds();
   const index = ids.indexOf(id);
   if (index >= 0) {
-    ids.splice(index, 1);  // すでに済み → 取り消す
+    ids.splice(index, 1); // すでに済み → 取り消す
   } else {
-    ids.push(id);          // 未取得 → 追加する
+    ids.push(id); // 未取得 → 追加する
   }
   saveStampedIds(ids);
   return index < 0;
@@ -46,7 +46,7 @@ function stampedCount() {
 
 function updateStampBtn(btn, id) {
   const done = isStamped(id);
-  const wasStamped = btn.classList.contains("stamped");  // ★変化前の状態を記録
+  const wasStamped = btn.classList.contains("stamped"); // ★変化前の状態を記録
 
   btn.classList.toggle("stamped", done);
   btn.textContent = done ? "ぺったん済み ✓" : "ぺったん！";
@@ -60,5 +60,3 @@ function updateStampBtn(btn, id) {
     btn.classList.remove("just-stamped");
   }
 }
-
-

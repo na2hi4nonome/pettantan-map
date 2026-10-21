@@ -14,18 +14,22 @@ function matchesFilter(p, filter) {
   // ② カテゴリ（"all"のときはスキップ）
   if (filter.category !== "all" && p.category !== filter.category) return false;
   // ③ スタンプ条件（stampTypeは「配列」なので配列のincludesを使う）
-  if (filter.stampType !== "all" && !p.stampType.includes(filter.stampType)) return false;
+  if (filter.stampType !== "all" && !p.stampType.includes(filter.stampType))
+    return false;
 
-  return true;  // どの条件にも外れなかった＝表示してよい
+  return true; // どの条件にも外れなかった＝表示してよい
 }
 
 // 辞書から「全部＋各項目」のチップ列を作る。
 // 第1引数は data-〇〇 の〇〇の部分。"category"なら data-category="food" のようになる
 function chipGroupHTML(dictKey, dict) {
   const allBtn = `<button type="button" class="chip active" data-${dictKey}="all">全部</button>`;
-  const chips = Object.entries(dict).map(([value, label]) =>
-    `<button type="button" class="chip" data-${dictKey}="${value}">${label}</button>`
-  ).join("");
+  const chips = Object.entries(dict)
+    .map(
+      ([value, label]) =>
+        `<button type="button" class="chip" data-${dictKey}="${value}">${label}</button>`,
+    )
+    .join("");
   return allBtn + chips;
 }
 

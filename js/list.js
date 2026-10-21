@@ -15,15 +15,17 @@ async function loadShopList() {
   try {
     const response = await fetch("data/spots.geojson");
     if (!response.ok) {
-      throw new Error(`データファイルの読み込みに失敗しました（HTTP ${response.status}）`);
+      throw new Error(
+        `データファイルの読み込みに失敗しました（HTTP ${response.status}）`,
+      );
     }
     const data = await response.json();
 
     allFeatures = data.features;
     total = allFeatures.length;
 
-    renderFilterUI();  // 絞り込みUIの準備（1回だけ）
-    renderList();      // 一覧の1回目の描画
+    renderFilterUI(); // 絞り込みUIの準備（1回だけ）
+    renderList(); // 一覧の1回目の描画
   } catch (error) {
     listElement.innerHTML = `<p class="error">店舗一覧を読み込めませんでした：${error.message}</p>`;
     console.error(error);
@@ -33,8 +35,14 @@ async function loadShopList() {
 // ===== 絞り込みUIの準備 =====
 function renderFilterUI() {
   // チップのHTMLを作って流し込む（辞書から自動生成）
-  document.getElementById("category-chips").innerHTML = chipGroupHTML("category", CATEGORY_LABELS);
-  document.getElementById("stamp-chips").innerHTML = chipGroupHTML("stamp", STAMP_LABELS);
+  document.getElementById("category-chips").innerHTML = chipGroupHTML(
+    "category",
+    CATEGORY_LABELS,
+  );
+  document.getElementById("stamp-chips").innerHTML = chipGroupHTML(
+    "stamp",
+    STAMP_LABELS,
+  );
 
   // カテゴリチップ：押されたら「状態を変えて、描き直す」
   document.querySelectorAll("#category-chips .chip").forEach((chip) => {
@@ -67,7 +75,9 @@ function renderList() {
   const listElement = document.getElementById("shop-list");
 
   // ★本日の主役：配列のfilter。条件を満たすFeatureだけを残す
-  const shown = allFeatures.filter((feature) => matchesFilter(feature.properties, filter));
+  const shown = allFeatures.filter((feature) =>
+    matchesFilter(feature.properties, filter),
+  );
 
   const cards = shown.map((feature) => {
     const p = feature.properties;
@@ -94,9 +104,11 @@ function renderList() {
     <div class="list-tools">
       <button type="button" id="reset-stamps" class="btn btn-outline btn-sm">記録を全消去</button>
     </div>
-    ${cards.length > 0
-      ? `<div class="shop-grid">${cards.join("")}</div>`
-      : `<p class="no-result">条件に合う店舗がありません</p>`}
+    ${
+      cards.length > 0
+        ? `<div class="shop-grid">${cards.join("")}</div>`
+        : `<p class="no-result">条件に合う店舗がありません</p>`
+    }
   `;
 
   // ボタンが生まれ変わったので、クリック処理も張り直す（重要！下で解説）
@@ -108,15 +120,14 @@ function renderList() {
     });
   });
 
-    // 全消去ボタン（renderListで生まれ直すので、ここで毎回張り直す）
+  // 全消去ボタン（renderListで生まれ直すので、ここで毎回張り直す）
   const resetBtn = document.getElementById("reset-stamps");
   resetBtn.addEventListener("click", () => {
     const ok = confirm("全店舗のぺったん記録を消します。よろしいですか？");
-    if (!ok) return;           // キャンセルされたら何もしない
+    if (!ok) return; // キャンセルされたら何もしない
     resetStamps();
-    renderList();              // 状態が変わったので再描画
+    renderList(); // 状態が変わったので再描画
   });
-
 
   updateProgressUI(total);
 }
@@ -124,7 +135,7 @@ function renderList() {
 function updateProgressUI(total) {
   const countEl = document.getElementById("stamp-count");
   const fillEl = document.getElementById("progress-fill");
-  if (!countEl || !fillEl) return;  // 要素が無いページでは何もしない保険
+  if (!countEl || !fillEl) return; // 要素が無いページでは何もしない保険
 
   const count = stampedCount();
   countEl.textContent = `${count} / ${total} ぺったん！`;
@@ -132,7 +143,5 @@ function updateProgressUI(total) {
   const ratio = total > 0 ? count / total : 0;
   fillEl.style.width = `${ratio * 100}%`;
 }
-
-
 
 loadShopList();
