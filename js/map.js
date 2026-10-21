@@ -4,7 +4,7 @@
 // setView([緯度, 経度], ズーム倍率)
 // ※GeoJSONのcoordinatesは[経度,緯度]の順だったのに、Leafletの関数は[緯度,経度]順。
 //   ライブラリごとに順序が違う。Leafletは「L=Latitudeが先」と覚える
-const map = L.map("map").setView([35.487, 133.825], 14);
+const map = L.map("map").setView([35.45457413, 133.8500623], 14);
 
 // ===== 2. 地図タイル（背景画像）の読み込み =====
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
