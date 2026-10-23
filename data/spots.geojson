@@ -443,7 +443,7 @@
         "id": "spot28",
         "name": "【宿】米小旅館",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["eat, stay"],
         "hours": "",
         "closed": "年末年始",
         "note": "宿泊必須"
@@ -459,7 +459,7 @@
         "id": "spot29",
         "name": "【宿】古民家ゲストハウス倉吉",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["eat, stay"],
         "hours": "",
         "closed": "無休",
         "note": "宿泊必須"
@@ -475,7 +475,7 @@
         "id": "spot30",
         "name": "【宿】松原旅館",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["eat", "stay"],
         "hours": "",
         "closed": "無休",
         "note": "宿泊必須"
@@ -491,7 +491,7 @@
         "id": "spot31",
         "name": "【宿】石井旅館",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["eat", "stay"],
         "hours": "",
         "closed": "不定休",
         "note": "食事のみ可（要予約）"
@@ -507,7 +507,7 @@
         "id": "spot32",
         "name": "【宿】福助旅館",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["eat", "stay"],
         "hours": "",
         "closed": "",
         "note": "宿泊必須"
@@ -523,7 +523,7 @@
         "id": "spot33",
         "name": "【宿】まきた旅館",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["eat", "stay"],
         "hours": "",
         "closed": "不定休",
         "note": "食事のみ可（要予約）"
@@ -539,7 +539,7 @@
         "id": "spot34",
         "name": "【宿】松風荘旅館",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["eat", "stay"],
         "hours": "",
         "closed": "不定休",
         "note": "宿泊必須"
@@ -555,7 +555,7 @@
         "id": "spot35",
         "name": "関の湯共同温泉",
         "category": "onsen",
-        "stampType": ["eat"],
+        "stampType": ["onsen"],
         "hours": "7:00〜20:00",
         "closed": "毎月1、15日",
         "note": "入浴利用必須"
@@ -571,7 +571,7 @@
         "id": "spot36",
         "name": "grimon グリモン",
         "category": "food",
-        "stampType": ["eat"],
+        "stampType": ["eat_night"],
         "hours": "18:00〜22:00",
         "closed": "月曜",
         "note": "夜のみ営業"
@@ -587,7 +587,7 @@
         "id": "spot37",
         "name": "KURAYOSHI.exe",
         "category": "spot",
-        "stampType": ["eat"],
+        "stampType": ["eat_night"],
         "hours": "17:00〜",
         "closed": "月〜水曜",
         "note": "夜のみ営業※要確認"
@@ -603,7 +603,7 @@
         "id": "spot38",
         "name": "パブハウスガン",
         "category": "food",
-        "stampType": ["eat"],
+        "stampType": ["eat_night"],
         "hours": "17:00〜24:00",
         "closed": "月曜",
         "note": "夜のみ営業"
@@ -619,7 +619,7 @@
         "id": "spot39",
         "name": "居酒屋上月",
         "category": "food",
-        "stampType": ["eat"],
+        "stampType": ["eat_night"],
         "hours": "18:00〜23:00",
         "closed": "不定休",
         "note": "夜のみ営業"
@@ -635,7 +635,7 @@
         "id": "spot40",
         "name": "日ノ丸自動車倉吉営業所",
         "category": "spot",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "8:30〜18:00",
         "closed": "無休",
         "note": ""
@@ -651,7 +651,7 @@
         "id": "spot41",
         "name": "倉吉観光物産館　長生堂",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "平日9:30〜18:00／土日祝9:30〜15:00",
         "closed": "無休",
         "note": ""
@@ -667,7 +667,7 @@
         "id": "spot42",
         "name": "SUIKO WORK CAMP",
         "category": "spot",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜17:30",
         "closed": "日・祝※ホームページ要確認",
         "note": ""
@@ -683,7 +683,7 @@
         "id": "spot43",
         "name": "スーパーヒーロー",
         "category": "spot",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "日～木10:00〜26:00,金土祝10:00～28:00",
         "closed": "無休",
         "note": ""
@@ -699,7 +699,7 @@
         "id": "spot44",
         "name": "ビーワイヨシダ",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜19:00",
         "closed": "無休",
         "note": ""
@@ -715,7 +715,7 @@
         "id": "spot45",
         "name": "farm garden チトのゆび",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜18:30",
         "closed": "火曜",
         "note": ""
@@ -731,7 +731,7 @@
         "id": "spot46",
         "name": "福井園芸店",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜17:00",
         "closed": "水曜",
         "note": ""
@@ -747,7 +747,7 @@
         "id": "spot47",
         "name": "トミヤ楽器店",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜19:00",
         "closed": "月曜",
         "note": ""
@@ -763,7 +763,7 @@
         "id": "spot48",
         "name": "brass",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜19:00",
         "closed": "月曜・第3火曜",
         "note": ""
@@ -779,7 +779,7 @@
         "id": "spot49",
         "name": "ＨａｐｐｙＲｕｓｈ Ha.Pi.Ra(ハピラ)",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜19:00",
         "closed": "不定休",
         "note": ""
@@ -795,7 +795,7 @@
         "id": "spot50",
         "name": "はこた人形工房",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜17:00",
         "closed": "水曜",
         "note": ""
@@ -811,7 +811,7 @@
         "id": "spot51",
         "name": "元帥酒造",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜17:30",
         "closed": "無休",
         "note": ""
@@ -827,7 +827,7 @@
         "id": "spot52",
         "name": "まととや",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "12:00〜16:00",
         "closed": "火・水",
         "note": ""
@@ -843,7 +843,7 @@
         "id": "spot53",
         "name": "ギフトやぶき",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜18:00",
         "closed": "無休",
         "note": ""
@@ -859,7 +859,7 @@
         "id": "spot54",
         "name": "桑田醤油醸造場",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜17:00",
         "closed": "無休",
         "note": ""
@@ -875,7 +875,7 @@
         "id": "spot55",
         "name": "倉吉ふるさと工芸館",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜16:00",
         "closed": "水曜",
         "note": ""
@@ -891,7 +891,7 @@
         "id": "spot56",
         "name": "ハンドメイドショップ SION",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜18:00",
         "closed": "水曜",
         "note": ""
@@ -907,7 +907,7 @@
         "id": "spot57",
         "name": "赤瓦一号館（1階長生堂）",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜17:00",
         "closed": "無休",
         "note": ""
@@ -923,7 +923,7 @@
         "id": "spot58",
         "name": "ふみ子の手作り工房",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜16:00",
         "closed": "不定休",
         "note": ""
@@ -939,7 +939,7 @@
         "id": "spot59",
         "name": "ビジネスインたけのや",
         "category": "hotel",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "",
         "closed": "",
         "note": ""
@@ -955,7 +955,7 @@
         "id": "spot60",
         "name": "小林薬局 本店",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜18:00",
         "closed": "日・祝日、お盆・年末年始",
         "note": ""
@@ -971,7 +971,7 @@
         "id": "spot61",
         "name": "ブライダルハウスとさき",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜19:00",
         "closed": "水曜",
         "note": ""
@@ -987,7 +987,7 @@
         "id": "spot62",
         "name": "花はあんどう",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "8:30〜17:30",
         "closed": "年始1/1〜1/3",
         "note": ""
@@ -1003,7 +1003,7 @@
         "id": "spot63",
         "name": "豊田家住宅",
         "category": "spot",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00〜16:00",
         "closed": "木曜",
         "note": ""
@@ -1019,7 +1019,7 @@
         "id": "spot64",
         "name": "おもちゃと駄菓子のたいら",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜18:00",
         "closed": "水曜",
         "note": ""
@@ -1035,7 +1035,7 @@
         "id": "spot65",
         "name": "倉吉淀屋",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜17:00",
         "closed": "木曜",
         "note": ""
@@ -1051,7 +1051,7 @@
         "id": "spot66",
         "name": "花こまち 谷本種苗園芸",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "8:30〜18:30",
         "closed": "無休",
         "note": ""
@@ -1067,7 +1067,7 @@
         "id": "spot67",
         "name": "いなしま酒店",
         "category": "shop",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "10:00～13:00,\n14:00～19:00",
         "closed": "",
         "note": "店舗の外にスタンプ有り"
@@ -1083,7 +1083,7 @@
         "id": "spot68",
         "name": "円形劇場くらよしフィギュアミュージアム",
         "category": "spot",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "9:00〜17:00（7〜9月は9:00〜18:00）",
         "closed": "無休",
         "note": ""
@@ -1099,7 +1099,7 @@
         "id": "spot69",
         "name": "打吹山長谷寺",
         "category": "spot",
-        "stampType": ["eat"],
+        "stampType": ["visit"],
         "hours": "8:00〜17:00",
         "closed": "無休",
         "note": ""
@@ -1115,7 +1115,7 @@
         "id": "spot70",
         "name": "せきがね湯命館",
         "category": "onsen",
-        "stampType": ["eat"],
+        "stampType": ["visit", "onsen"],
         "hours": "10:00〜21:00",
         "closed": "月曜",
         "note": ""
