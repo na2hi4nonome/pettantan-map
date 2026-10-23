@@ -384,6 +384,11 @@ body.map-page {
   cursor: wait;
 }
 
+#locate-btn.following {
+  background: var(--main-color);
+  color: #fff;
+}
+
 /* 地図本体：flex:1 で「ヘッダーを除いた残り全部」を占有 */
 #map {
   flex: 1;
