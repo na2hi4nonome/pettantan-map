@@ -326,6 +326,7 @@ h3 {
 }
 
 .data-note {
+  text-align: center;
   font-size: 0.8rem;
   color: #888;
   margin-top: 24px;
