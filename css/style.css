@@ -325,6 +325,12 @@ h3 {
   margin-top: 12px;
 }
 
+.data-note {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 24px;
+}
+
 /* ---- 8. マップページ ---- */
 /* 「ヘッダー＋地図」で画面をちょうど1枚に収めるレイアウト */
 body.map-page {
