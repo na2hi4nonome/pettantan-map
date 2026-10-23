@@ -125,13 +125,14 @@ function updateMapProgress() {
 
 loadSpots();
 
-// ===== 5. 現在地表示 =====
+// ===== 5. 現在地表示（追従モード） =====
 
 // ボタンを取っておく（map.jsはdeferで読まれるので、DOMはもう準備済み）
 const locateBtn = document.getElementById("locate-btn");
 
-// 現在地マーカーを入れておく箱。null = 「まだ何も無い」の意味
-let myLocationLayer = null;
+let myPoint = null; // 現在地の点
+let myAccuracy = null; // 精度を表す円
+let followId = null; // watchPositionのID。null = 追従していない
 
 let totalShops = 0; // 店舗の総数。データ読み込み後に判明する
 
@@ -139,69 +140,84 @@ let spotLayer = null; // 店舗ピン全体のグループ。loadSpotsの中で�
 // 現在の絞り込み条件（list.jsと同じ形にする）
 const filterState = { category: "all", stampType: "all", text: "" };
 
-// 「このボタンがクリックされたらshowMyLocationを呼んで」──これもコールバック
-locateBtn.addEventListener("click", showMyLocation);
+// ボタンはトグル式：押すと追従開始、もう一度押すと停止
+locateBtn.addEventListener("click", () => {
+  if (followId === null) {
+    startFollow();
+  } else {
+    stopFollow();
+  }
+});
 
-function showMyLocation() {
-  // 位置情報非対応ブラウザの保険
+function startFollow() {
   if (!navigator.geolocation) {
     alert("このブラウザは位置情報に対応していません");
     return;
   }
-
-  // 取得中は連打防止＋「動いてる」表示
   locateBtn.disabled = true;
-  locateBtn.textContent = "取得中…";
+  locateBtn.textContent = "現在地を探しています…";
 
-  // 位置取得をお願いする。結果は後から、成功/失敗どちらか1本のコールバックで届く
-  navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError, {
-    enableHighAccuracy: true, // スマホのGPSを優先（精度↑・電池消費と引き換え）
-    timeout: 10000, // 10秒たっても取れなければ失敗扱い
-  });
+  // watchPosition = 監視を登録して、位置が更新されるたびコールバックが呼ばれる。
+  // 戻り値のIDが「この監視の番号」。止めるときはclearWatch(ID)に渡す
+  followId = navigator.geolocation.watchPosition(
+    onLocationUpdate,
+    onLocationError,
+    {
+      enableHighAccuracy: true, // スマホのGPSを優先（精度↑・電池消費と引き換え）
+      maximumAge: 5000, // 5秒以内のキャッシュなら再利用してOK
+      timeout: 20000, // 1回の取得が20秒超えたら失敗扱い
+    },
+  );
 }
 
-// 取得【成功】のときだけブラウザが呼ぶコールバック
-function onLocationSuccess(position) {
+function stopFollow() {
+  if (followId !== null) {
+    navigator.geolocation.clearWatch(followId); // 監視解除。忘れるとGPSを使い続けて電池を食う
+    followId = null;
+  }
   locateBtn.disabled = false;
   locateBtn.textContent = "📍 現在地";
+  locateBtn.classList.remove("following");
+}
 
-  // 結果は position.coords の中。緯度経度が「別々の項目」なので順序の罠ナシ
-  const lat = position.coords.latitude; // 緯度
-  const lng = position.coords.longitude; // 経度
+// 位置が更新されるたびに呼ばれるコールバック
+function onLocationUpdate(position) {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
   const accuracy = position.coords.accuracy; // 誤差の目安（メートル）
 
-  // 前回の現在地が残っていたら削除（クリックのたびに重なるのを防ぐ）
-  if (myLocationLayer) {
-    map.removeLayer(myLocationLayer);
-  }
-
-  // 点（ピン）＋精度を表す円 を1グループにまとめて地図に載せる
-  myLocationLayer = L.layerGroup([
-    L.circleMarker([lat, lng], {
-      // radius は「ピクセル」単位
+  if (!myPoint) {
+    // 最初の1回だけ、点と円を作って地図に載せる
+    myPoint = L.circleMarker([lat, lng], {
       radius: 8,
       color: "#4361ee",
       fillColor: "#4361ee",
       fillOpacity: 1,
       weight: 3,
-    }),
-    L.circle([lat, lng], {
-      // radius は「メートル」単位（実世界の大きさ）
-      radius: accuracy,
+    }).addTo(map);
+    myAccuracy = L.circle([lat, lng], {
+      radius: accuracy, // メートル単位（実世界の大きさ）
       color: "#4361ee",
       fillColor: "#4361ee",
       fillOpacity: 0.1,
       weight: 1,
-    }),
-  ]).addTo(map);
+    }).addTo(map);
 
-  map.flyTo([lat, lng], 16); // アニメ付きで現在地へ移動
+    map.flyTo([lat, lng], 16); // 初回だけ現在地へ移動。追従ではなく「一度だけ」
+  } else {
+    // 2回目以降は、既存の点と円を新しい位置へ移すだけ（削除→再作成しない）
+    myPoint.setLatLng([lat, lng]);
+    myAccuracy.setLatLng([lat, lng]);
+    myAccuracy.setRadius(accuracy);
+  }
+
+  locateBtn.disabled = false;
+  locateBtn.textContent = "📍 追従中";
+  locateBtn.classList.add("following");
 }
 
-// 取得【失敗】のときだけブラウザが呼ぶコールバック
 function onLocationError(error) {
-  locateBtn.disabled = false;
-  locateBtn.textContent = "📍 現在地";
+  stopFollow(); // 失敗したら追従をやめてボタンを元に戻す
 
   const messages = {
     1: "位置情報の利用が許可されていません。ブラウザの設定から許可してください",
