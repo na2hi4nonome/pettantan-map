@@ -443,7 +443,7 @@
         "id": "spot28",
         "name": "【宿】米小旅館",
         "category": "hotel",
-        "stampType": ["eat, stay"],
+        "stampType": ["eat", "stay"],
         "hours": "",
         "closed": "年末年始",
         "note": "宿泊必須"
@@ -459,7 +459,7 @@
         "id": "spot29",
         "name": "【宿】古民家ゲストハウス倉吉",
         "category": "hotel",
-        "stampType": ["eat, stay"],
+        "stampType": ["eat", "stay"],
         "hours": "",
         "closed": "無休",
         "note": "宿泊必須"
