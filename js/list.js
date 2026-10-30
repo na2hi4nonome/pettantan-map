@@ -68,6 +68,32 @@ function renderFilterUI() {
     filter.text = event.target.value.trim();
     renderList();
   });
+
+  // 適用中フィルタの「解除」ボタン
+  const clearBtn = document.getElementById("clear-filters");
+  if (clearBtn) clearBtn.addEventListener("click", clearFilters);
+}
+
+// すべての絞り込み条件を初期状態へ戻す
+function clearFilters() {
+  filter.category = "all";
+  filter.stampType = "all";
+  filter.text = "";
+
+  const searchBox = document.getElementById("search-box");
+  if (searchBox) searchBox.value = "";
+
+  // 各グループの「全部」チップをactiveに戻す
+  setActiveChip(
+    "category-chips",
+    document.querySelector('#category-chips .chip[data-category="all"]'),
+  );
+  setActiveChip(
+    "stamp-chips",
+    document.querySelector('#stamp-chips .chip[data-stamp="all"]'),
+  );
+
+  renderList();
 }
 
 // ===== 一覧を描き直す（条件が変わるたびに呼ばれる） =====
@@ -98,7 +124,7 @@ function renderList() {
   });
 
   listElement.innerHTML = `
-    <p class="shop-count">該当 ${shown.length} / 全${total}店（※現在はダミーデータです）</p>
+    <p class="shop-count">該当 ${shown.length} / 全${total}店</p>
     <p id="stamp-count" class="stamp-count"></p>
     <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
     <div class="list-tools">
@@ -107,7 +133,10 @@ function renderList() {
     ${
       cards.length > 0
         ? `<div class="shop-grid">${cards.join("")}</div>`
-        : `<p class="no-result">条件に合う店舗がありません</p>`
+        : `<div class="no-result">
+             <p>条件に合う店舗がありません</p>
+             <button type="button" class="btn btn-outline btn-sm clear-empty-btn">絞り込みを解除</button>
+           </div>`
     }
   `;
 
@@ -128,6 +157,13 @@ function renderList() {
     resetStamps();
     renderList(); // 状態が変わったので再描画
   });
+
+  // 0件表示の中にある「絞り込みを解除」
+  const clearEmptyBtn = document.querySelector(".clear-empty-btn");
+  if (clearEmptyBtn) clearEmptyBtn.addEventListener("click", clearFilters);
+
+  // 適用中フィルタの行を更新
+  updateFilterSummary("active-filters", "active-filter-list", filter);
 
   updateProgressUI(total);
 }

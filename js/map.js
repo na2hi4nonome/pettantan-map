@@ -13,6 +13,52 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+// ===== 状態変数 =====
+// loadSpots()より先に宣言する（呼び出し時点で初期化済みにするため）
+let totalShops = 0; // 店舗の総数。データ読み込み後に判明する
+let spotLayer = null; // 店舗ピン全体のグループ。loadSpotsの中で代入する
+let clusterGroup = null; // ピンをまとめるグループ（クラスタリング用）
+// 現在の絞り込み条件（list.jsと同じ形にする）
+const filterState = { category: "all", stampType: "all", text: "" };
+
+// ===== 凡例 =====
+// 地図の左下に「凡例」を置く。details要素なので、タップで開閉できる
+function addLegend() {
+  const legend = L.control({ position: "bottomleft" });
+
+  legend.onAdd = () => {
+    const wrap = L.DomUtil.create("div", "map-legend-wrap");
+    const categoryItems = Object.entries(CATEGORY_LABELS)
+      .map(
+        ([key, label]) => `
+          <li>
+            <span class="legend-icon legend-icon-${key}">${CATEGORY_ICONS[key] ?? "📍"}</span>
+            ${label}
+          </li>`,
+      )
+      .join("");
+
+    wrap.innerHTML = `
+      <details class="map-legend">
+        <summary>凡例</summary>
+        <ul>
+          ${categoryItems}
+          <li><span class="legend-cluster">3</span>まとまった店舗</li>
+          <li><span class="legend-icon legend-current">●</span>現在地</li>
+        </ul>
+      </details>`;
+
+    // 凡例のクリックやホイールが地図側に伝わらないようにする
+    L.DomEvent.disableClickPropagation(wrap);
+    L.DomEvent.disableScrollPropagation(wrap);
+    return wrap;
+  };
+
+  legend.addTo(map);
+}
+
+addLegend();
+
 // ===== 3. 店舗データの読み込みとピン表示 =====
 async function loadSpots() {
   const errorBox = document.getElementById("map-error");
@@ -55,7 +101,7 @@ async function loadSpots() {
           // ボタン個別ではなく「ポップアップの器」に処理を取り付ける。
           // onclickは代入なので、何度開いても1個だけ（積み重ならない）
           popupEl.onclick = (ev) => {
-            // 「押された場所」がぺったんボタンかどうかは、クリックされた瞬間に判定
+            // 「押された場所」がぺったんボタンかどうかは、クリックした瞬間に判定
             const btn = ev.target.closest(".stamp-btn");
             if (!btn) return;
 
@@ -65,7 +111,38 @@ async function loadSpots() {
           };
         });
       },
-    }).addTo(map);
+    });
+
+    // ピンをまとめるグループを作る。
+    // プラグインが読み込めなかった場合でも、通常のレイヤーグループで動くようにする
+    clusterGroup =
+      typeof L.markerClusterGroup === "function"
+        ? L.markerClusterGroup({
+            maxClusterRadius: 60, // この距離以内のピンを1つにまとめる
+            showCoverageOnHover: false, // ホバー時の範囲表示は不要
+            spiderfyOnMaxZoom: true, // 最大ズームで重なったピンを扇状に開く
+            disableClusteringAtZoom: 18, // 拡大しすぎたらクラスタを解除
+            // クラスタのタップ領域も44px以上にする（既定の小サイズは40px）
+            iconCreateFunction: (cluster) => {
+              const count = cluster.getChildCount();
+              const size =
+                count < 10 ? "small" : count < 100 ? "medium" : "large";
+              const px = size === "small" ? 44 : size === "medium" ? 50 : 60;
+              return L.divIcon({
+                html: `<div><span>${count}</span></div>`,
+                className: `marker-cluster marker-cluster-${size}`,
+                iconSize: L.point(px, px),
+              });
+            },
+          })
+        : L.layerGroup();
+
+    clusterGroup.addTo(map);
+
+    // spotLayer自体は地図に貼らず、中のマーカーをclusterGroupへ渡す
+    spotLayer.getLayers().forEach((layer) => clusterGroup.addLayer(layer));
+
+    applyFilter(); // 全件表示＋「表示 X / Y 店」の初期化
 
     // ===== 4. 深いリンク対応（map.html?spot=sample01 で直接開く） =====
     // ※fetchの完了後に実行したいので、この位置にあるのが重要
@@ -76,12 +153,17 @@ async function loadSpots() {
         .find((layer) => layer.feature.properties.id === spotId);
       if (target) {
         map.setView(target.getLatLng(), 16); // 即座に移動（アニメなし・確実）
-        target.openPopup();
+
+        // クラスタ内に隠れている場合、そのピンが見えるまで自動でズームする
+        if (typeof clusterGroup.zoomToShowLayer === "function") {
+          clusterGroup.zoomToShowLayer(target, () => target.openPopup());
+        } else {
+          target.openPopup();
+        }
       } else {
         console.warn(`spot=${spotId} に一致する店舗がありません`);
       }
     }
-    applyFilter(); // データが揃ったので、初期状態の「表示 X / 6 店」を出す
   } catch (error) {
     errorBox.textContent = `マップデータを読み込めませんでした：${error.message}`;
     errorBox.hidden = false;
@@ -95,9 +177,9 @@ function makeIcon(category) {
   return L.divIcon({
     className: "pin-wrap", // Leaflet既定のクラス名を上書き（白い枠を消すため）
     html: `<div class="pin pin-${category}">${emoji}</div>`,
-    iconSize: [32, 32],
-    iconAnchor: [16, 16], // アイコンの「どの点」を座標に合わせるか。円形なので中心
-    popupAnchor: [0, -16], // ポップアップを出す位置（アイコン中心から上16px）
+    iconSize: [44, 44],
+    iconAnchor: [22, 22], // アイコンの「どの点」を座標に合わせるか。円形なので中心
+    popupAnchor: [0, -22], // ポップアップを出す位置（アイコン中心から上22px）
   });
 }
 
@@ -133,12 +215,6 @@ const locateBtn = document.getElementById("locate-btn");
 let myPoint = null; // 現在地の点
 let myAccuracy = null; // 精度を表す円
 let followId = null; // watchPositionのID。null = 追従していない
-
-let totalShops = 0; // 店舗の総数。データ読み込み後に判明する
-
-let spotLayer = null; // 店舗ピン全体のグループ。loadSpotsの中で代入する
-// 現在の絞り込み条件（list.jsと同じ形にする）
-const filterState = { category: "all", stampType: "all", text: "" };
 
 // ボタンはトグル式：押すと追従開始、もう一度押すと停止
 locateBtn.addEventListener("click", () => {
@@ -212,7 +288,7 @@ function onLocationUpdate(position) {
   }
 
   locateBtn.disabled = false;
-  locateBtn.textContent = "📍 追従中";
+  locateBtn.textContent = "📍 現在地表示中";
   locateBtn.classList.add("following");
 }
 
@@ -268,24 +344,57 @@ function setupMapFilters() {
     filterState.text = event.target.value.trim();
     applyFilter();
   });
+
+  // 適用中フィルタの「解除」ボタン
+  const clearBtn = document.getElementById("clear-filters");
+  if (clearBtn) clearBtn.addEventListener("click", clearFilters);
+}
+
+// すべての絞り込み条件を初期状態へ戻す
+function clearFilters() {
+  filterState.category = "all";
+  filterState.stampType = "all";
+  filterState.text = "";
+
+  const searchBox = document.getElementById("search-box");
+  if (searchBox) searchBox.value = "";
+
+  // 各グループの「全部」チップをactiveに戻す
+  setActiveChip(
+    "category-chips",
+    document.querySelector('#category-chips .chip[data-category="all"]'),
+  );
+  setActiveChip(
+    "stamp-chips",
+    document.querySelector('#stamp-chips .chip[data-stamp="all"]'),
+  );
+
+  applyFilter();
 }
 
 // 条件に合うピンだけを地図に残す
 function applyFilter() {
-  if (!spotLayer) return; // データ読み込み前なら何もしない
+  // パネルを閉じていても適用中条件が見えるように、先に表示を更新する
+  updateFilterSummary("active-filters", "active-filter-list", filterState);
 
-  let shown = 0;
-  spotLayer.getLayers().forEach((layer) => {
-    if (matchesFilter(layer.feature.properties, filterState)) {
-      map.addLayer(layer); // 条件OK → 地図に【貼る】
-      shown++;
-    } else {
-      map.removeLayer(layer); // 条件NG → 地図から【剥がす】
-    }
-  });
+  // 適用中フィルタ行の表示/非表示で地図の高さが変わるため再計算する
+  map.invalidateSize();
+
+  if (!spotLayer || !clusterGroup) return; // データ読み込み前なら何もしない
+
+  // 条件に合うマーカーだけを配列に集める
+  const shownLayers = spotLayer
+    .getLayers()
+    .filter((layer) =>
+      matchesFilter(layer.feature.properties, filterState),
+    );
+
+  // クラスタグループを一度空にしてから、条件に合うピンだけを入れ直す
+  clusterGroup.clearLayers();
+  shownLayers.forEach((layer) => clusterGroup.addLayer(layer));
 
   const el = document.getElementById("filter-count");
-  if (el) el.textContent = `表示 ${shown} / ${totalShops} 店`;
+  if (el) el.textContent = `表示 ${shownLayers.length} / ${totalShops} 店`;
 }
 
 setupMapFilters();

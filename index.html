@@ -156,9 +156,18 @@
               id="search-box"
               class="search-box"
               placeholder="店名で検索…"
+              aria-label="店名で検索"
             />
             <div class="chip-row" id="category-chips"></div>
             <div class="chip-row" id="stamp-chips"></div>
+            <!-- 適用中の絞り込み条件。1つでも有効なときだけ表示する -->
+            <div id="active-filters" class="active-filters" hidden>
+              <span class="active-filters-label">絞り込み中</span>
+              <span id="active-filter-list" class="active-filter-list"></span>
+              <button type="button" id="clear-filters" class="chip chip-clear">
+                解除
+              </button>
+            </div>
           </div>
 
           <div id="shop-list">

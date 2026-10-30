@@ -5,11 +5,11 @@
 /* ---- 1. 全体設定 ---- */
 /* :rootに決めておくと「色を変えたくなった時にここ1行だけ」で済む */
 :root {
-  --main-color: #e8547e; /* メイン（ピンク） */
-  --main-dark: #c73a63;
+  --main-color: #c73a63; /* メイン（ピンク）。白文字とのコントラスト4.98:1 */
+  --main-dark: #9e2a4d; /* 濃いピンク。白背景の文字にも使える */
   --bg-color: #fdf7f4;
   --text-color: #333;
-  --muted-color: #777;
+  --muted-color: #666;
   --card-bg: #fff;
   --radius: 10px;
 }
@@ -35,7 +35,13 @@ body {
 }
 
 a {
-  color: var(--main-color);
+  color: var(--main-dark);
+}
+
+/* キーボード操作時に現在位置が分かるようにする */
+:focus-visible {
+  outline: 3px solid #1a4fd6;
+  outline-offset: 2px;
 }
 
 /* ---- リスト ---- */
@@ -113,7 +119,7 @@ textarea {
   /* 背景を2枚重ねる：カンマ区切りで「先に書いた方が手前」 */
   background-image:
     /* 1枚目：スタンプ風の水玉（ぺったんたんのテーマそのもの） */
-    radial-gradient(circle, rgba(232, 84, 126, 0.08) 6px, transparent 7px),
+    radial-gradient(circle, rgba(199, 58, 99, 0.08) 6px, transparent 7px),
     /* 2枚目：上は淡いピンク → 下はサイトの背景色へ消えていく */
     linear-gradient(180deg, #ffe4ed 0%, var(--bg-color) 100%);
   background-size:
@@ -197,7 +203,7 @@ h3 {
 .btn-primary {
   background: var(--main-color);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(232, 84, 126, 0.35); /* メイン色の半透明 */
+  box-shadow: 0 4px 12px rgba(199, 58, 99, 0.35); /* メイン色の半透明 */
 }
 .btn-primary:hover {
   background: var(--main-dark);
@@ -210,11 +216,16 @@ h3 {
 }
 .btn-outline:hover {
   background: #fdeef2;
+  color: var(--main-dark);
 }
 
 /* サイズのバリエーション（修飾子）：大きさだけを担当する */
 .btn-sm {
-  padding: 6px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
   font-size: 0.85rem;
 }
 
@@ -288,19 +299,19 @@ h3 {
   margin: 2px 4px 2px 0;
 }
 .badge-eat {
-  background: #e8547e;
+  background: #c73a63;
 }
 .badge-eat_night {
   background: #6a4c93;
 }
 .badge-visit {
-  background: #2a9d8f;
+  background: #1f7a6f;
 }
 .badge-stay {
   background: #4361ee;
 }
 .badge-onsen {
-  background: #f4a261;
+  background: #a8540f;
 }
 
 .error {
@@ -321,14 +332,14 @@ h3 {
 }
 .copyright {
   text-align: center;
-  color: #999;
+  color: #b5b5b5;
   margin-top: 12px;
 }
 
 .data-note {
   text-align: center;
   font-size: 0.8rem;
-  color: #888;
+  color: #b5b5b5;
   margin-top: 24px;
 }
 
@@ -370,14 +381,26 @@ body.map-page {
 .map-header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.map-header-actions > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 4px;
 }
 .locate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  white-space: nowrap;
   background: #fff;
   color: var(--main-dark);
   border: none;
   border-radius: 999px;
-  padding: 6px 14px;
   font-size: 0.85rem;
   font-weight: bold;
   cursor: pointer;
@@ -423,28 +446,28 @@ body.map-page {
 } /* divIconの既定スタイル（白い四角枠）を消す */
 .pin {
   box-sizing: border-box;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background: #fff;
   border: 3px solid #999;
-  font-size: 16px;
+  font-size: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 .pin-food {
-  border-color: #e8547e;
+  border-color: #c73a63;
 }
 .pin-shop {
-  border-color: #2a9d8f;
+  border-color: #1f7a6f;
 }
 .pin-hotel {
   border-color: #4361ee;
 }
 .pin-onsen {
-  border-color: #f4a261;
+  border-color: #a8540f;
 }
 .pin-spot {
   border-color: #6a4c93;
@@ -472,12 +495,130 @@ body.map-page {
   margin: 6px 0;
 }
 .popup-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 0.8rem;
+}
+
+/* 凡例（左下） */
+.map-legend {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-size: 0.8rem;
+  max-width: 190px;
+  overflow: hidden;
+}
+.map-legend summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--main-dark);
+  font-weight: bold;
+  cursor: pointer;
+  list-style: none;
+}
+.map-legend summary::-webkit-details-marker {
+  display: none;
+}
+.map-legend[open] summary {
+  border-bottom: 1px solid #eee;
+}
+.map-legend ul {
+  margin: 0;
+  padding: 8px 12px 10px;
+  list-style: none;
+}
+.map-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  color: #333;
+}
+.legend-icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #999;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 13px;
+}
+.legend-icon-food {
+  border-color: #c73a63;
+}
+.legend-icon-shop {
+  border-color: #1f7a6f;
+}
+.legend-icon-hotel {
+  border-color: #4361ee;
+}
+.legend-icon-onsen {
+  border-color: #a8540f;
+}
+.legend-icon-spot {
+  border-color: #6a4c93;
+}
+.legend-current {
+  border-color: #4361ee;
+  color: #4361ee;
+  font-size: 14px;
+}
+.legend-cluster {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #9e2a4d;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* マーカークラスタ（プラグイン既定の緑をサイトのピンクに変更） */
+.marker-cluster {
+  font-family: inherit;
+}
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background-color: rgba(199, 58, 99, 0.25);
+}
+.marker-cluster-medium {
+  background-color: rgba(158, 42, 77, 0.28);
+}
+.marker-cluster-large {
+  background-color: rgba(120, 25, 55, 0.3);
+}
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background-color: #9e2a4d;
+  color: #fff;
+  font-weight: bold;
+}
+/* 小クラスタは外径44pxに合わせて内側も34pxにする */
+.marker-cluster-small div {
+  width: 34px;
+  height: 34px;
+  margin: 5px;
 }
 /* ---- 9. ぺったん済ボタンと進捗表示 ---- */
 .stamp-btn {
-  display: inline-block;
-  padding: 8px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
   border: 2px solid var(--main-color);
   border-radius: 999px;
   background: #fff;
@@ -500,6 +641,7 @@ body.map-page {
 
 .stamp-btn:hover {
   background: #fdeef2;
+  color: var(--main-dark);
 }
 /* 「済み」状態。JSがstampedクラスを付け外しする */
 .stamp-btn.stamped {
@@ -540,7 +682,7 @@ body.map-page {
 
 /* ポップアップ内ではボタンを横いっぱいに */
 .leaflet-popup-content .stamp-btn {
-  display: block;
+  display: flex;
   width: 100%;
   margin-top: 8px;
 }
@@ -552,10 +694,12 @@ body.map-page {
 /* ---- 10. 絞り込み・検索 ---- */
 .search-box {
   width: 100%;
-  padding: 10px 16px;
+  min-height: 44px;
+  padding: 8px 16px;
   border: 2px solid #ddd;
   border-radius: 999px;
   font-size: 1rem; /* 1rem=16px。16px未満だとiPhoneでフォーカスした瞬間に画面がズームされる対策 */
+  line-height: 1.4;
   background: #fff;
 }
 .filter-box {
@@ -568,13 +712,18 @@ body.map-page {
   margin: 6px 0;
 }
 .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 14px;
   border: 1.5px solid var(--main-color);
   border-radius: 999px;
   background: #fff;
   color: var(--main-color);
   font-size: 0.8rem;
   font-weight: bold;
-  padding: 4px 12px;
+  line-height: 1.2;
   cursor: pointer;
 }
 .chip.active {
@@ -590,6 +739,9 @@ body.map-page {
   text-align: center;
   padding: 32px 0;
 }
+.no-result p {
+  margin-bottom: 12px;
+}
 
 /* マップページの絞り込みバー */
 /* ツールバー：常時表示は1行だけ */
@@ -597,14 +749,16 @@ body.map-page {
   flex: none;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 8px 16px;
   background: #fff;
   border-bottom: 1px solid #eee;
 }
 .map-toolbar .search-box {
-  flex: 1;
-  min-width: 120px;
+  flex: 1 1 160px;
+  width: auto;
+  min-width: 0;
 }
 
 /* 開閉式の絞り込みパネル */
@@ -613,6 +767,8 @@ body.map-page {
   background: #fff;
   border-bottom: 1px solid #eee;
   padding: 8px 16px 10px;
+  max-height: 40dvh;
+  overflow-y: auto;
 }
 /* ⚠ 注意：ここに display: flex などを書かないこと！
    書くと [hidden] 属性の display: none が負けて、
@@ -622,6 +778,54 @@ body.map-page {
   font-size: 0.8rem;
   color: var(--muted-color);
   white-space: nowrap;
+}
+
+/* 適用中の絞り込み条件 */
+.active-filters {
+  flex: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #fff7fa;
+  border-bottom: 1px solid #f0d5de;
+  font-size: 0.8rem;
+}
+/* display:flex が [hidden] の display:none に勝たないように明示する */
+.active-filters[hidden] {
+  display: none;
+}
+.active-filters-label {
+  color: var(--main-dark);
+  font-weight: bold;
+}
+.active-filter-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.active-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid #e5b7c5;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--main-dark);
+  font-weight: bold;
+}
+.chip-clear {
+  border-color: var(--main-dark);
+  color: var(--main-dark);
+}
+/* 一覧ページではチップの下に控えめに置く */
+.filter-box .active-filters {
+  margin-top: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
 }
 
 /* ---- 11. ぺったん演出 ---- */

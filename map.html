@@ -19,7 +19,7 @@
     />
     <meta
       property="og:image"
-      content="https://あなたのID.github.io/pettantan-map/img/stamp.png"
+      content="https://na2hi4nonome.github.io/pettantan-map/img/stamp.png"
     />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
@@ -30,8 +30,6 @@
       href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css" />
-
     <!-- Leaflet本体：必ず「CSSとJSのセット」で読み込む -->
     <link
       rel="stylesheet"
@@ -39,10 +37,32 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
+    <!-- マーカークラスタリング用プラグイン（Leafletの後に読み込む） -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+      integrity="sha256-YU3qCpj/P06tdPBJGPax0bm6Q1wltfwjsho5TR4+TYc="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+      integrity="sha256-YSWCMtmNZNwqex4CEw1nQhvFub2lmU7vcCKP+XVwwXA="
+      crossorigin=""
+    />
+    <!-- サイト共通スタイルはプラグインCSSの後に置き、色などを上書きできるようにする -->
+    <link rel="stylesheet" href="css/style.css" />
+
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
+    ></script>
+    <script
+      src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
+      integrity="sha256-Hk4dIpcqOSb0hZjgyvFOP+cEmDXUKKNE/tT542ZbNQg="
+      crossorigin=""
+      defer
     ></script>
     <link rel="icon" type="image/png" href="img/stamp.png" />
     <script src="js/labels.js" defer></script>
@@ -75,6 +95,7 @@
         class="chip"
         type="button"
         aria-expanded="false"
+        aria-controls="filter-panel"
       >
         絞り込み ▾
       </button>
@@ -83,8 +104,17 @@
         id="search-box"
         class="search-box"
         placeholder="店名で検索…"
+        aria-label="店名で検索"
       />
       <span id="filter-count" class="filter-count"></span>
+    </div>
+    <!-- 適用中の絞り込み条件。1つでも有効なときだけ表示する -->
+    <div id="active-filters" class="active-filters" hidden>
+      <span class="active-filters-label">絞り込み中</span>
+      <span id="active-filter-list" class="active-filter-list"></span>
+      <button type="button" id="clear-filters" class="chip chip-clear">
+        解除
+      </button>
     </div>
     <!-- 開閉式パネル：既定は隠す。チップはJSがここに流し込む -->
     <div id="filter-panel" class="filter-panel" hidden>

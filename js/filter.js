@@ -39,3 +39,39 @@ function setActiveChip(groupId, activeChip) {
     chip.classList.toggle("active", chip === activeChip);
   });
 }
+
+// ===== 適用中フィルタの可視化（両ページ共通） =====
+
+// 現在の条件を「表示用の文字列の配列」に変換する
+function filterSummaryItems(filter) {
+  const items = [];
+  if (filter.category !== "all") {
+    items.push(CATEGORY_LABELS[filter.category] ?? filter.category);
+  }
+  if (filter.stampType !== "all") {
+    items.push(STAMP_LABELS[filter.stampType] ?? filter.stampType);
+  }
+  if (filter.text !== "") {
+    items.push(`「${filter.text}」`);
+  }
+  return items;
+}
+
+// 適用中フィルタの行を更新する。条件が0個なら行ごと隠す
+function updateFilterSummary(boxId, listId, filter) {
+  const box = document.getElementById(boxId);
+  const list = document.getElementById(listId);
+  if (!box || !list) return;
+
+  const items = filterSummaryItems(filter);
+  box.hidden = items.length === 0;
+
+  // 検索語はユーザー入力なのでinnerHTMLではなくtextContentで組み立てる（XSS対策）
+  list.textContent = "";
+  items.forEach((text) => {
+    const tag = document.createElement("span");
+    tag.className = "active-filter-tag";
+    tag.textContent = text;
+    list.appendChild(tag);
+  });
+}
