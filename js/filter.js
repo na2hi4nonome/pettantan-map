@@ -57,6 +57,21 @@ function filterSummaryItems(filter) {
   return items;
 }
 
+// ===== stickyな絞り込みバーの位置決め =====
+// ヘッダーもstickyで、高さは画面幅で変わる。実測してCSS変数 --header-h に渡し、
+// CSS側（.filter-sticky の top）がその値を使う
+function syncHeaderHeight() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  document.documentElement.style.setProperty(
+    "--header-h",
+    `${header.offsetHeight}px`,
+  );
+}
+syncHeaderHeight();
+window.addEventListener("resize", syncHeaderHeight);
+window.addEventListener("load", syncHeaderHeight); // フォント読み込み後の高さ変化にも合わせる
+
 // 適用中フィルタの行を更新する。条件が0個なら行ごと隠す
 function updateFilterSummary(boxId, listId, filter) {
   const box = document.getElementById(boxId);

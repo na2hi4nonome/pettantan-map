@@ -151,14 +151,17 @@
 
           <!-- 絞り込み・検索UI。チップの中身はJSが辞書から生成する -->
           <div class="filter-box">
-            <input
-              type="search"
-              id="search-box"
-              class="search-box"
-              placeholder="店名で検索…"
-              aria-label="店名で検索"
-            />
-            <div class="chip-row" id="category-chips"></div>
+            <!-- 検索＋カテゴリはスクロールしても上に残る（.filter-sticky） -->
+            <div class="filter-sticky">
+              <input
+                type="search"
+                id="search-box"
+                class="search-box"
+                placeholder="店名で検索…"
+                aria-label="店名で検索"
+              />
+              <div class="chip-row" id="category-chips"></div>
+            </div>
             <div class="chip-row" id="stamp-chips"></div>
             <!-- 適用中の絞り込み条件。1つでも有効なときだけ表示する -->
             <div id="active-filters" class="active-filters" hidden>

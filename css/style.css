@@ -255,6 +255,7 @@ h3 {
 .shop-grid {
   display: grid;
   gap: 12px;
+  align-items: start; /* 開いた店舗の行が、隣の行まで引き伸ばさないようにする */
 }
 .shop-card {
   background: var(--card-bg);
@@ -287,6 +288,93 @@ h3 {
 }
 .shop-maplink {
   margin-top: 4px;
+}
+
+/* 店舗1件分の開閉ボックス（details）。閉じている間は summary の細い行だけが見える */
+.shop-item {
+  background: var(--card-bg);
+  border: 1px solid #eee;
+  border-radius: var(--radius);
+}
+.shop-summary {
+  list-style: none; /* 既定の三角マーカーを消し、自前の矢印に差し替える */
+  cursor: pointer;
+  padding: 10px 14px;
+  min-height: 44px; /* タップしやすい高さを確保 */
+}
+.shop-summary::-webkit-details-marker {
+  display: none; /* Safari向けのマーカー消し */
+}
+.shop-summary-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* 開閉の矢印。閉じている間は右向き、開いたら下向きに回転する */
+.shop-summary-main::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.55em;
+  height: 0.55em;
+  border-right: 2px solid var(--main-color);
+  border-bottom: 2px solid var(--main-color);
+  transform: rotate(-45deg);
+}
+.shop-item[open ] > .shop-summary .shop-summary-main::before {
+  transform: rotate(45deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .shop-summary-main::before {
+    transition: transform 0.2s;
+  }
+}
+.shop-summary .shop-name {
+  font-weight: bold;
+  margin: 0;
+}
+.shop-summary-sub {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  margin-left: calc(0.55em + 8px); /* 矢印の分だけ字下げして、店名の位置に揃える */
+}
+.shop-summary .shop-category {
+  margin: 0;
+}
+/* ぺったん済みの判子マーク。閉じた行でも済んだ店が分かるように */
+.shop-done {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7em;
+  height: 1.7em;
+  border: 2px solid var(--main-color);
+  border-radius: 50%;
+  color: var(--main-color);
+  font-size: 0.72rem;
+  font-weight: bold;
+  transform: rotate(-8deg); /* 判子らしく少し傾ける */
+}
+.shop-detail {
+  padding: 2px 14px 12px;
+}
+/* 開閉をなめらかにする（対応ブラウザのみ。非対応ではパッと開閉するだけ） */
+.shop-item::details-content {
+  interpolate-size: allow-keywords; /* 高さの自動計算へアニメーションできるようにする */
+  overflow: clip;
+  contain: layout;
+}
+.shop-item:not([open])::details-content {
+  block-size: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .shop-item::details-content {
+    transition:
+      block-size 0.25s ease-in-out,
+      content-visibility 0.25s;
+    transition-behavior: allow-discrete; /* 閉じ終わるまで中身を隠さない */
+  }
 }
 
 /* スタンプ条件のバッジ。JSONの stampType の値＝クラス名で色分け */
@@ -704,6 +792,29 @@ body.map-page {
 }
 .filter-box {
   margin-bottom: 16px;
+}
+/* 検索＋カテゴリチップの行は、スクロールしてもヘッダーの下に張り付く。
+   top の位置は filter.js が実測したヘッダー高さ（--header-h）を使う */
+.filter-sticky {
+  position: sticky;
+  top: var(--header-h, 104px);
+  z-index: 60;
+  background: var(--bg-color);
+  padding: 8px 0 4px;
+}
+/* スマホではチップを折り返さず1行にして横スクロールにする（stickyの高さを抑える） */
+@media (max-width: 699px) {
+  #shops .chip-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  #shops .chip-row::-webkit-scrollbar {
+    display: none;
+  }
+  #shops .chip {
+    flex-shrink: 0;
+  }
 }
 .chip-row {
   display: flex;

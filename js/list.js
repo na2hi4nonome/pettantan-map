@@ -108,18 +108,30 @@ function renderList() {
   const cards = shown.map((feature) => {
     const p = feature.properties;
     const done = isStamped(p.id);
+    // 1店分は details（開閉できる箱）にする。
+    // summary（常に表示される細い行）には店名・カテゴリ・バッジだけを置き、
+    // 営業時間やボタンは開いたときだけ見せる。スマホでのスクロール量を減らす工夫
     return `
-      <article class="shop-card">
-        <h3 class="shop-name">${p.name}</h3>
-        <p class="shop-category">${CATEGORY_LABELS[p.category] ?? p.category}</p>
-        <div class="shop-badges">${badgeHTML(p.stampType)}</div>
-        <p class="shop-meta">営業時間：${p.hours}<br>定休日：${p.closed}</p>
-        ${p.note ? `<p class="shop-note">${p.note}</p>` : ""}
-        <div class="shop-actions">
-          <button type="button" class="stamp-btn ${done ? "stamped" : ""}" data-id="${p.id}">${done ? "ぺったん済み ✓" : "ぺったん！"}</button>
-          <a class="btn btn-outline btn-sm" href="map.html?spot=${p.id}">マップで見る →</a>
+      <details class="shop-item">
+        <summary class="shop-summary">
+          <span class="shop-summary-main">
+            <span class="shop-name">${p.name}</span>
+            ${done ? `<span class="shop-done">済</span>` : ""}
+          </span>
+          <span class="shop-summary-sub">
+            <span class="shop-category">${CATEGORY_LABELS[p.category] ?? p.category}</span>
+            <span class="shop-badges">${badgeHTML(p.stampType)}</span>
+          </span>
+        </summary>
+        <div class="shop-detail">
+          <p class="shop-meta">営業時間：${p.hours}<br>定休日：${p.closed}</p>
+          ${p.note ? `<p class="shop-note">${p.note}</p>` : ""}
+          <div class="shop-actions">
+            <button type="button" class="stamp-btn ${done ? "stamped" : ""}" data-id="${p.id}">${done ? "ぺったん済み ✓" : "ぺったん！"}</button>
+            <a class="btn btn-outline btn-sm" href="map.html?spot=${p.id}">マップで見る →</a>
+          </div>
         </div>
-      </article>
+      </details>
     `;
   });
 
@@ -145,6 +157,7 @@ function renderList() {
     btn.addEventListener("click", () => {
       toggleStamp(btn.dataset.id);
       updateStampBtn(btn, btn.dataset.id);
+      updateDoneMark(btn);
       updateProgressUI(total);
     });
   });
@@ -167,6 +180,24 @@ function renderList() {
 
   updateProgressUI(total);
 }
+// ぺったん状態が変わったら、summary側の「済」マークも合わせる
+// （閉じたままでも済んだ店が分かるようにするための小さな同期処理）
+function updateDoneMark(btn) {
+  const main = btn.closest(".shop-item")?.querySelector(".shop-summary-main");
+  if (!main) return;
+
+  const done = isStamped(btn.dataset.id);
+  const mark = main.querySelector(".shop-done");
+  if (done && !mark) {
+    const span = document.createElement("span");
+    span.className = "shop-done";
+    span.textContent = "済";
+    main.appendChild(span);
+  } else if (!done && mark) {
+    mark.remove();
+  }
+}
+
 // 進捗表示（「3 / 6 ぺったん！」＋バー）を更新する
 function updateProgressUI(total) {
   const countEl = document.getElementById("stamp-count");
