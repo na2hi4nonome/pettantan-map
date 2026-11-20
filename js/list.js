@@ -6,8 +6,11 @@
 let allFeatures = [];
 let total = 0;
 
-// 現在の絞り込み条件。この3つが「状態」
+// 現在の絞り込み条件（適用済み）。この3つが「状態」
 const filter = { category: "all", stampType: "all", text: "" };
+// プルダウンパネルを開いている間の仮選択。
+// 「絞り込む」を押すまで一覧には効かない
+let tempFilter = { category: "all", stampType: "all" };
 
 async function loadShopList() {
   const listElement = document.getElementById("shop-list");
@@ -32,68 +35,143 @@ async function loadShopList() {
   }
 }
 
-// ===== 絞り込みUIの準備 =====
+// ===== 絞り込みUIの準備（プルダウン式） =====
+
+// 辞書から「全部＋各項目」の選択肢ボタンを作る（ラジオ丸付き）
+function optionGroupHTML(dictKey, dict) {
+  const allBtn = `<button type="button" class="option-btn active" data-${dictKey}="all"><span class="radio" aria-hidden="true"></span>全部</button>`;
+  const btns = Object.entries(dict)
+    .map(
+      ([value, label]) =>
+        `<button type="button" class="option-btn" data-${dictKey}="${value}"><span class="radio" aria-hidden="true"></span>${label}</button>`,
+    )
+    .join("");
+  return allBtn + btns;
+}
+
+// グループ内で「選択中の値のボタンだけ」にactiveクラスを付ける
+function setActiveOption(groupId, value, dictKey) {
+  document.querySelectorAll(`#${groupId} .option-btn`).forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset[dictKey] === value);
+  });
+}
+
 function renderFilterUI() {
-  // チップのHTMLを作って流し込む（辞書から自動生成）
-  document.getElementById("category-chips").innerHTML = chipGroupHTML(
+  // 選択肢のHTMLを作って流し込む（辞書から自動生成）
+  document.getElementById("category-options").innerHTML = optionGroupHTML(
     "category",
     CATEGORY_LABELS,
   );
-  document.getElementById("stamp-chips").innerHTML = chipGroupHTML(
+  document.getElementById("stamp-options").innerHTML = optionGroupHTML(
     "stamp",
     STAMP_LABELS,
   );
 
-  // カテゴリチップ：押されたら「状態を変えて、描き直す」
-  document.querySelectorAll("#category-chips .chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      filter.category = chip.dataset.category;
-      setActiveChip("category-chips", chip);
-      renderList();
+  // カテゴリの仮選択
+  document.querySelectorAll("#category-options .option-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tempFilter.category = btn.dataset.category;
+      setActiveOption("category-options", tempFilter.category, "category");
+      updateFilterPreview();
     });
   });
 
-  // スタンプ条件チップ
-  document.querySelectorAll("#stamp-chips .chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      filter.stampType = chip.dataset.stamp;
-      setActiveChip("stamp-chips", chip);
-      renderList();
+  // スタンプ条件の仮選択
+  document.querySelectorAll("#stamp-options .option-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      tempFilter.stampType = btn.dataset.stamp;
+      setActiveOption("stamp-options", tempFilter.stampType, "stamp");
+      updateFilterPreview();
     });
   });
 
-  // 検索box：clickではなく input。1文字打つごとに発火する
+  // 検索box：clickではなく input。1文字打つごとに発火し、即時反映する
   const searchBox = document.getElementById("search-box");
   searchBox.addEventListener("input", (event) => {
     filter.text = event.target.value.trim();
     renderList();
   });
 
-  // 適用中フィルタの「解除」ボタン
-  const clearBtn = document.getElementById("clear-filters");
-  if (clearBtn) clearBtn.addEventListener("click", clearFilters);
+  // プルダウンの開閉。開くたびに「適用済みの条件」を仮選択へ写す
+  const toggle = document.getElementById("filter-toggle");
+  const panel = document.getElementById("filter-panel");
+  toggle.addEventListener("click", () => {
+    const willOpen = panel.hidden;
+    if (willOpen) {
+      tempFilter = { category: filter.category, stampType: filter.stampType };
+      setActiveOption("category-options", tempFilter.category, "category");
+      setActiveOption("stamp-options", tempFilter.stampType, "stamp");
+      updateFilterPreview();
+    }
+    panel.hidden = !willOpen;
+    toggle.setAttribute("aria-expanded", String(willOpen));
+    toggle.classList.toggle("open", willOpen);
+  });
+
+  // 「絞り込む」：仮選択を本適用して、パネルを閉じる
+  document.getElementById("filter-apply").addEventListener("click", () => {
+    filter.category = tempFilter.category;
+    filter.stampType = tempFilter.stampType;
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.classList.remove("open");
+    renderList();
+  });
+
+  // 「絞り込みを解除」：仮選択だけを全部に戻す（適用は「絞り込む」押下時）
+  document.getElementById("filter-clear").addEventListener("click", () => {
+    tempFilter = { category: "all", stampType: "all" };
+    setActiveOption("category-options", "all", "category");
+    setActiveOption("stamp-options", "all", "stamp");
+    updateFilterPreview();
+  });
 }
 
-// すべての絞り込み条件を初期状態へ戻す
+// 条件オブジェクトで数えたときの該当件数
+function countMatches(f) {
+  return allFeatures.filter((feature) =>
+    matchesFilter(feature.properties, f),
+  ).length;
+}
+
+// パネル内の件数プレビュー（仮選択＋現在の検索語で数える）
+function updateFilterPreview() {
+  const el = document.getElementById("filter-preview");
+  if (!el) return;
+  const n = countMatches({
+    category: tempFilter.category,
+    stampType: tempFilter.stampType,
+    text: filter.text,
+  });
+  el.textContent = `この条件だと ${n} 店`;
+}
+
+// すべての絞り込み条件を初期状態へ戻す（0件表示のボタンなどから呼ばれる）
 function clearFilters() {
   filter.category = "all";
   filter.stampType = "all";
   filter.text = "";
+  tempFilter = { category: "all", stampType: "all" };
 
   const searchBox = document.getElementById("search-box");
   if (searchBox) searchBox.value = "";
 
-  // 各グループの「全部」チップをactiveに戻す
-  setActiveChip(
-    "category-chips",
-    document.querySelector('#category-chips .chip[data-category="all"]'),
-  );
-  setActiveChip(
-    "stamp-chips",
-    document.querySelector('#stamp-chips .chip[data-stamp="all"]'),
-  );
+  setActiveOption("category-options", "all", "category");
+  setActiveOption("stamp-options", "all", "stamp");
 
   renderList();
+}
+
+// 絞り込みバーの要約（適用中のカテゴリ／スタンプ条件）と件数を更新する
+function updateFilterBar(shownCount) {
+  const summary = document.getElementById("filter-summary");
+  const count = document.getElementById("filter-count");
+  if (summary) {
+    // 検索語は検索欄そのものが見えているので、要約には含めない
+    const items = filterSummaryItems({ ...filter, text: "" });
+    summary.textContent = items.length > 0 ? items.join("・") : "絞り込みなし";
+  }
+  if (count) count.textContent = `該当 ${shownCount}店`;
 }
 
 // ===== 一覧を描き直す（条件が変わるたびに呼ばれる） =====
@@ -110,13 +188,14 @@ function renderList() {
     const done = isStamped(p.id);
     // 1店分は details（開閉できる箱）にする。
     // summary（常に表示される細い行）には店名・カテゴリ・バッジだけを置き、
-    // 営業時間やボタンは開いたときだけ見せる。スマホでのスクロール量を減らす工夫
+    // 営業時間やボタンは開いたときだけ見せる。スマホでのスクロール量を減らす工夫。
+    // 行の右端には「判子マス」を常設し、ぺったん済みなら「済」の判子が収まる
     return `
       <details class="shop-item">
         <summary class="shop-summary">
           <span class="shop-summary-main">
             <span class="shop-name">${p.name}</span>
-            ${done ? `<span class="shop-done">済</span>` : ""}
+            <span class="stamp-slot${done ? " is-done" : ""}">${done ? "済" : ""}</span>
           </span>
           <span class="shop-summary-sub">
             <span class="shop-category">${CATEGORY_LABELS[p.category] ?? p.category}</span>
@@ -137,10 +216,13 @@ function renderList() {
 
   listElement.innerHTML = `
     <p class="shop-count">該当 ${shown.length} / 全${total}店</p>
-    <p id="stamp-count" class="stamp-count"></p>
-    <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
-    <div class="list-tools">
-      <button type="button" id="reset-stamps" class="btn btn-outline btn-sm">記録を全消去</button>
+    <div class="stamp-card">
+      <p class="stamp-card-title">あなたのぺったん台紙</p>
+      <p id="stamp-count" class="stamp-count"></p>
+      <div id="stamp-dots" class="stamp-dots" aria-hidden="true"></div>
+      <div class="list-tools">
+        <button type="button" id="reset-stamps" class="btn btn-outline btn-sm">記録を全消去</button>
+      </div>
     </div>
     ${
       cards.length > 0
@@ -175,40 +257,51 @@ function renderList() {
   const clearEmptyBtn = document.querySelector(".clear-empty-btn");
   if (clearEmptyBtn) clearEmptyBtn.addEventListener("click", clearFilters);
 
-  // 適用中フィルタの行を更新
-  updateFilterSummary("active-filters", "active-filter-list", filter);
+  // 絞り込みバーの要約と件数を更新
+  updateFilterBar(shown.length);
 
   updateProgressUI(total);
 }
-// ぺったん状態が変わったら、summary側の「済」マークも合わせる
+
+// ぺったん状態が変わったら、summary側の判子マスも合わせる
 // （閉じたままでも済んだ店が分かるようにするための小さな同期処理）
 function updateDoneMark(btn) {
-  const main = btn.closest(".shop-item")?.querySelector(".shop-summary-main");
-  if (!main) return;
+  const slot = btn.closest(".shop-item")?.querySelector(".stamp-slot");
+  if (!slot) return;
 
   const done = isStamped(btn.dataset.id);
-  const mark = main.querySelector(".shop-done");
-  if (done && !mark) {
-    const span = document.createElement("span");
-    span.className = "shop-done";
-    span.textContent = "済";
-    main.appendChild(span);
-  } else if (!done && mark) {
-    mark.remove();
+  slot.classList.toggle("is-done", done);
+  slot.textContent = done ? "済" : "";
+  if (done) {
+    // 押した瞬間だけ判子らしく弾ませる（クラスを付け直して再再生）
+    slot.classList.remove("just");
+    void slot.offsetWidth;
+    slot.classList.add("just");
   }
 }
 
-// 進捗表示（「3 / 6 ぺったん！」＋バー）を更新する
+// 台紙カードの表示（「3 / 70 ぺったん！」＋丸マスの埋まり具合）を更新する
 function updateProgressUI(total) {
   const countEl = document.getElementById("stamp-count");
-  const fillEl = document.getElementById("progress-fill");
-  if (!countEl || !fillEl) return; // 要素が無いページでは何もしない保険
+  if (!countEl) return; // 要素が無いページでは何もしない保険
 
   const count = stampedCount();
   countEl.textContent = `${count} / ${total} ぺったん！`;
-  // 店舗0件のときの割り算（0÷0=NaN）を防ぐガード
-  const ratio = total > 0 ? count / total : 0;
-  fillEl.style.width = `${ratio * 100}%`;
+
+  // 丸マスは店舗数ぶん用意し、押した数だけラズベリー色に埋める
+  const dotsEl = document.getElementById("stamp-dots");
+  if (!dotsEl) return;
+  if (dotsEl.childElementCount !== total) {
+    dotsEl.innerHTML = "";
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement("span");
+      dot.className = "stamp-dot";
+      dotsEl.appendChild(dot);
+    }
+  }
+  [...dotsEl.children].forEach((dot, i) => {
+    dot.classList.toggle("filled", i < count);
+  });
 }
 
 loadShopList();

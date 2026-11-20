@@ -31,6 +31,7 @@
     <script src="js/stamps.js" defer></script>
     <script src="js/filter.js" defer></script>
     <script src="js/list.js" defer></script>
+    <script src="js/decor.js" defer></script>
   </head>
 
   <body>
@@ -53,7 +54,7 @@
 
     <main>
       <!-- ===== 概要 ===== -->
-      <section id="about" class="hero">
+      <section id="about" class="hero" data-fade>
         <div class="container">
           <h1>
             食べて歩いて<span class="accent">ぺったんたん</span
@@ -81,8 +82,11 @@
         </div>
       </section>
 
+      <div class="content-decor">
+        <div class="scatter-bg" aria-hidden="true"></div>
+
       <!-- ===== 進め方 ===== -->
-      <section id="howto" class="section">
+      <section id="howto" class="section" data-fade>
         <div class="container">
           <h2>スタンプラリーの進め方</h2>
           <ol class="howto-steps">
@@ -113,7 +117,7 @@
       </section>
 
       <!-- ===== ひなビタ♪紹介 ===== -->
-      <section id="hinabita" class="section section-alt">
+      <section id="hinabita" class="section section-alt" data-fade>
         <div class="container">
           <h2>「ひなビタ♪」とは</h2>
           <p>
@@ -145,13 +149,13 @@
       </section>
 
       <!-- ===== 店舗一覧（中身はlist.jsが生成する） ===== -->
-      <section id="shops" class="section">
+      <section id="shops" class="section" data-fade>
         <div class="container">
           <h2>参加店舗一覧</h2>
 
           <!-- 絞り込み・検索UI。チップの中身はJSが辞書から生成する -->
           <div class="filter-box">
-            <!-- 検索＋カテゴリはスクロールしても上に残る（.filter-sticky） -->
+            <!-- 検索＋絞り込みバーはスクロールしても上に残る（.filter-sticky） -->
             <div class="filter-sticky">
               <input
                 type="search"
@@ -160,16 +164,38 @@
                 placeholder="店名で検索…"
                 aria-label="店名で検索"
               />
-              <div class="chip-row" id="category-chips"></div>
-            </div>
-            <div class="chip-row" id="stamp-chips"></div>
-            <!-- 適用中の絞り込み条件。1つでも有効なときだけ表示する -->
-            <div id="active-filters" class="active-filters" hidden>
-              <span class="active-filters-label">絞り込み中</span>
-              <span id="active-filter-list" class="active-filter-list"></span>
-              <button type="button" id="clear-filters" class="chip chip-clear">
-                解除
+              <button
+                type="button"
+                id="filter-toggle"
+                class="filter-toggle"
+                aria-expanded="false"
+                aria-controls="filter-panel"
+              >
+                <span class="filter-toggle-label">絞り込み</span>
+                <span id="filter-summary" class="filter-toggle-summary">絞り込みなし</span>
+                <span id="filter-count" class="filter-toggle-count"></span>
+                <span class="filter-toggle-arrow" aria-hidden="true"></span>
               </button>
+            </div>
+            <!-- プルダウンパネル。中身の選択肢はJSが辞書から生成する -->
+            <div id="filter-panel" class="filter-panel-index" hidden>
+              <div class="filter-group">
+                <h3 class="filter-group-title">カテゴリで絞り込む</h3>
+                <div class="option-row" id="category-options"></div>
+              </div>
+              <div class="filter-group">
+                <h3 class="filter-group-title">スタンプの種類で絞り込む</h3>
+                <div class="option-row" id="stamp-options"></div>
+              </div>
+              <p id="filter-preview" class="filter-preview" aria-live="polite"></p>
+              <div class="filter-panel-actions">
+                <button type="button" id="filter-clear" class="btn btn-outline">
+                  絞り込みを解除
+                </button>
+                <button type="button" id="filter-apply" class="btn btn-primary">
+                  絞り込む
+                </button>
+              </div>
             </div>
           </div>
 
@@ -178,6 +204,7 @@
           </div>
         </div>
       </section>
+      </div>
     </main>
 
     <footer class="site-footer">
