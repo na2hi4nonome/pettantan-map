@@ -1,265 +1,331 @@
 /* =========================================
-   ぺったんたん非公式マップ 共通スタイル
-   ========================================= */
+ぺったんたん非公式マップ 共通スタイル
+デジタル庁デザインシステム（DADS）の
+デザイントークンと部品仕様に沿って再構成したもの。
+- 色は DADS プリミティブカラー（blue / solid-gray 等）を使用
+- フォントは DADS 標準の Noto Sans JP
+- ボタンは DADS 仕様（角丸8px、フォーカス時は黒枠＋黄色のリング）
+※本サイトは公式サイトではありません。デザインの参考にしただけで、
+デジタル庁・自治体とは一切関係ありません。
+========================================= */
 
-/* ---- 1. 全体設定 ---- */
-/* :rootに決めておくと「色を変えたくなった時にここ1行だけ」で済む */
+/* ---- 1. 全体設定（DADSデザイントークン） ---- */
 :root {
-  --main-color: #c73a63; /* メイン（ピンク）。白文字とのコントラスト4.98:1 */
-  --main-dark: #9e2a4d; /* 濃いピンク。白背景の文字にも使える */
-  --bg-color: #fdf7f4;
-  --text-color: #333;
-  --muted-color: #666;
-  --card-bg: #fff;
-  --radius: 10px;
+/* DADS プリミティブカラー（公式 global.css より） */
+--color-primitive-blue-50: #e8f1fe;
+--color-primitive-blue-100: #d9e6ff;
+--color-primitive-blue-200: #c5d7fb;
+--color-primitive-blue-800: #0031d8;
+--color-primitive-blue-900: #0017c1;
+--color-primitive-blue-1000: #00118f;
+--color-primitive-blue-1200: #000060;
+--color-primitive-yellow-300: #ffd43d;
+--color-primitive-yellow-50: #fbf5e0;
+--color-primitive-yellow-1000: #806300;
+--color-neutral-white: #ffffff;
+--color-neutral-black: #000000;
+--color-neutral-solid-gray-50: #f2f2f2;
+--color-neutral-solid-gray-100: #e6e6e6;
+--color-neutral-solid-gray-200: #cccccc;
+--color-neutral-solid-gray-300: #b3b3b3;
+--color-neutral-solid-gray-420: #949494;
+--color-neutral-solid-gray-536: #767676;
+--color-neutral-solid-gray-600: #666666;
+--color-neutral-solid-gray-700: #4d4d4d;
+--color-neutral-solid-gray-800: #333333;
+--color-neutral-solid-gray-900: #1a1a1a;
+--color-semantic-error-1: #ec0000;
+--color-semantic-error-2: #ce0000;
+
+/* このサイトのキーカラー = DADS blue-900 */
+--color-key: var(--color-primitive-blue-900);
+--color-key-hover: var(--color-primitive-blue-1000);
+--color-key-active: var(--color-primitive-blue-1200);
+
+/* 旧クラス名互換（JS・既存セレクタが参照する変数） */
+--main-color: var(--color-key);
+--main-dark: var(--color-key-hover);
+--bg-color: var(--color-neutral-white);
+--text-color: var(--color-neutral-solid-gray-900);
+--muted-color: var(--color-neutral-solid-gray-700);
+--card-bg: var(--color-neutral-white);
+--radius: 8px;
+--font-family-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
-/* スマホ基準で書き、広い画面だけ @media で上書きする（モバイルファースト） */
 html {
-  scroll-behavior: smooth;
-} /* ページ内リンクをゆっくりスクロール */
+scroll-behavior: smooth;
+}
 
 body {
-  font-family:
-    "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo,
-    sans-serif;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-  line-height: 1.7;
+font-family: var(--font-family-sans);
+color: var(--text-color);
+background-color: var(--bg-color);
+line-height: 1.7;
+letter-spacing: 0.02em;
 }
 
+/* DADSのリンク色は blue-1000、下線ありが基本 */
 a {
-  color: var(--main-dark);
+color: var(--color-primitive-blue-1000);
+text-decoration: underline;
+text-underline-offset: 3px;
+}
+a:hover {
+text-decoration-thickness: 3px;
 }
 
-/* キーボード操作時に現在位置が分かるようにする */
+/* DADSのフォーカススタイル：黒い太枠＋黄色のリングで現在位置を強く示す */
 :focus-visible {
-  outline: 3px solid #1a4fd6;
-  outline-offset: 2px;
+outline: 4px solid var(--color-neutral-black);
+outline-offset: 2px;
+box-shadow: 0 0 0 2px var(--color-primitive-yellow-300);
 }
 
-/* ---- リスト ---- */
-/* リセットで消えたブラウザ既定の左余白を、マーカー分だけ戻す。
-   折り返した2行目以降も「テキストの開始位置」に揃う（下図） */
 ul,
 ol {
-  padding-left: 1.6em;
+padding-left: 1.6em;
 }
 
 .container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-/* ---- 2. ヘッダー ---- */
-.site-header {
-  background: var(--main-color);
-  color: #fff;
-  padding: 12px 0;
-  position: sticky; /* ★追加1：スクロールしても粘着する */
-  top: 0; /* ★追加2：画面上端に張り付く */
-  z-index: 100; /* ★追加3：本文より手前に浮かせる */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* ★追加4：浮いてる感を出す影 */
-}
-.site-title a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-.unofficial {
-  display: inline-block;
-  margin-left: 8px;
-  font-size: 0.7rem;
-  border: 1px solid #fff;
-  border-radius: 4px;
-  padding: 1px 6px;
-  vertical-align: middle;
-}
-.site-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 16px;
-  list-style: none;
-  padding-left: 0;
-  margin-top: 6px;
-  font-size: 0.9rem;
-}
-.site-nav a {
-  color: #fff;
-  text-decoration: none;
-}
-.site-nav a:hover {
-  text-decoration: underline;
-}
-
-/* アンカージャンプの着地点を、ヘッダーの高さ分だけ下にずらす。
-   これがないと飛び先の見出しがstickyヘッダーの裏に隠れる */
-section[id] {
-  scroll-margin-top: 100px;
+max-width: 1024px;
+margin: 0 auto;
+padding: 0 16px;
 }
 
 button,
 input,
 select,
 textarea {
-  font-family: inherit; /* 親（body）のフォントを引き継ぐ */
+font-family: inherit;
+}
+
+/* ---- 2. ヘッダー（白地・黒文字・下罫線の行政標準型） ---- */
+.site-header {
+background: var(--color-neutral-white);
+color: var(--text-color);
+padding: 12px 0;
+position: sticky;
+top: 0;
+z-index: 100;
+border-bottom: 1px solid var(--color-neutral-solid-gray-200);
+}
+.site-title a {
+color: var(--text-color);
+text-decoration: none;
+font-weight: bold;
+font-size: 1.25rem;
+}
+.site-title a:hover {
+text-decoration: underline;
+text-decoration-thickness: 2px;
+}
+/* 「非公式」表示は誤認防止のため、赤枠で常時明示する */
+.unofficial {
+display: inline-block;
+margin-left: 8px;
+font-size: 0.75rem;
+font-weight: bold;
+color: var(--color-semantic-error-2);
+border: 1px solid var(--color-semantic-error-2);
+border-radius: 4px;
+padding: 1px 6px;
+vertical-align: middle;
+}
+.site-nav ul {
+display: flex;
+flex-wrap: wrap;
+gap: 4px 20px;
+list-style: none;
+padding-left: 0;
+margin-top: 6px;
+font-size: 0.95rem;
+}
+.site-nav a {
+color: var(--text-color);
+text-decoration: none;
+}
+.site-nav a:hover {
+text-decoration: underline;
+text-decoration-thickness: 2px;
+}
+
+section[id] {
+scroll-margin-top: 110px;
+}
+
+/* ---- パンくずリスト（DADS部品） ---- */
+.breadcrumb {
+background: var(--color-neutral-white);
+border-bottom: 1px solid var(--color-neutral-solid-gray-100);
+font-size: 0.85rem;
+}
+.breadcrumb ol {
+display: flex;
+flex-wrap: wrap;
+gap: 4px 8px;
+list-style: none;
+padding: 8px 0;
+margin: 0;
+}
+.breadcrumb li + li::before {
+content: ">";
+margin-right: 8px;
+color: var(--color-neutral-solid-gray-536);
+}
+.breadcrumb [aria-current="page"] {
+color: var(--text-color);
+font-weight: bold;
 }
 
 /* ---- 3. ヒーロー・セクション共通 ---- */
 .hero {
-  padding: 48px 0 40px;
-  /* 背景を2枚重ねる：カンマ区切りで「先に書いた方が手前」 */
-  background-image:
-    /* 1枚目：スタンプ風の水玉（ぺったんたんのテーマそのもの） */
-    radial-gradient(circle, rgba(199, 58, 99, 0.08) 6px, transparent 7px),
-    /* 2枚目：上は淡いピンク → 下はサイトの背景色へ消えていく */
-    linear-gradient(180deg, #ffe4ed 0%, var(--bg-color) 100%);
-  background-size:
-    36px 36px,
-    auto; /* 水玉は36px間隔のタイル、グラデは全体 */
+padding: 40px 0 32px;
+background: var(--color-neutral-white);
+border-bottom: 1px solid var(--color-neutral-solid-gray-100);
 }
-
 .hero h1 {
-  font-size: 1.9rem; /* 1.6 → 1.9に拡大 */
-  font-weight: 700; /* Zen Maru GothicのBold */
-  line-height: 1.35;
-  letter-spacing: 0.02em; /* ほんのり字間を開けてゆったり */
-  margin-bottom: 12px;
+font-size: 2rem;
+font-weight: 700;
+line-height: 1.4;
+letter-spacing: 0.02em;
+margin-bottom: 16px;
 }
-.hero h1 .accent {
-  color: var(--main-color); /* 「ぺったんたん」だけメイン色 */
+.hero h1.accent {
+color: var(--color-key);
 }
-
 .hero-lead {
-  margin-bottom: 8px;
+margin-bottom: 12px;
+max-width: 44em;
 }
+/* 開催期間は「お知らせの枠」として罫線ボックスで示す */
 .hero-period {
-  display: inline-block; /* pはブロック要素なので、内容幅まで縮める */
-  background: #fff;
-  border: 2px solid var(--main-color);
-  border-radius: 999px;
-  padding: 6px 18px;
-  font-weight: bold;
-  color: var(--main-dark);
-  margin-bottom: 16px;
+display: inline-block;
+background: var(--color-neutral-solid-gray-50);
+border: 1px solid var(--color-neutral-solid-gray-300);
+border-radius: var(--radius);
+padding: 8px 16px;
+font-weight: bold;
+margin-bottom: 16px;
 }
 
+/* 注意喚起バナー（DADSの通知バナーの考え方：淡い黄色地＋濃い罫） */
 .alert {
-  background: #fff3cd;
-  border: 1px solid #ffe08a;
-  border-radius: var(--radius);
-  padding: 10px 14px;
-  font-size: 0.85rem;
+background: var(--color-primitive-yellow-50);
+border: 1px solid var(--color-primitive-yellow-1000);
+border-radius: var(--radius);
+padding: 12px 16px;
+font-size: 0.9rem;
 }
 
 .section {
-  padding: 32px 0;
+padding: 32px 0;
 }
 .section-alt {
-  background: #fff;
-} /* 背景を変えて区切りを目立たせる */
+background: var(--color-neutral-solid-gray-50);
+}
 
+/* 見出し：左にキーカラーの帯、下に細罫（自治体サイトの標準形） */
 h2 {
-  font-size: 1.25rem;
-  border-left: 6px solid var(--main-color);
-  padding-left: 10px;
-  margin-bottom: 16px;
+font-size: 1.5rem;
+font-weight: 700;
+line-height: 1.5;
+border-left: 6px solid var(--color-key);
+border-bottom: 1px solid var(--color-neutral-solid-gray-200);
+padding: 4px 0 8px 12px;
+margin-bottom: 20px;
 }
 h3 {
-  font-size: 1.05rem;
-  margin: 20px 0 8px;
+font-size: 1.125rem;
+font-weight: 700;
+margin: 24px 0 8px;
 }
 
-/* ---- 3.5 ボタン（汎用パーツ） ---- */
+/* ---- 3.5 ボタン（DADS部品仕様） ---- */
 .hero-actions {
-  margin: 20px 0;
+margin: 20px 0;
 }
-
-/* 基本形：形と大きさだけを担当する */
 .btn {
-  display: inline-block; /* aはインライン要素なので、paddingや影を効かせるために箱化する */
-  padding: 12px 36px;
-  border-radius: 999px; /* 左右を半円にする値→カプセル型 */
-  font-weight: bold;
-  text-decoration: none;
-  text-align: center;
-  transition:
-    background-color 0.2s,
-    transform 0.15s; /* 変化をなめらかに */
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-height: 56px;
+padding: 12px 24px;
+border-radius: 8px;
+font-size: 1rem;
+font-weight: bold;
+letter-spacing: 0.02em;
+text-decoration: none;
+text-align: center;
 }
-.btn:active {
-  transform: scale(0.97);
-} /* 押し込んだ感 */
-
-/* 色のバリエーション（修飾子）：色だけを担当する */
 .btn-primary {
-  background: var(--main-color);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(199, 58, 99, 0.35); /* メイン色の半透明 */
+background: var(--color-key);
+color: var(--color-neutral-white);
+border: 4px double transparent;
 }
 .btn-primary:hover {
-  background: var(--main-dark);
+background: var(--color-key-hover);
+text-decoration: underline;
+text-decoration-thickness: 1px;
 }
-
+.btn-primary:active {
+background: var(--color-key-active);
+}
 .btn-outline {
-  border: 2px solid var(--main-color);
-  background: var(--card-bg);
-  color: var(--main-color);
+border: 1px solid var(--color-key);
+background: var(--color-neutral-white);
+color: var(--color-key);
 }
 .btn-outline:hover {
-  background: #fdeef2;
-  color: var(--main-dark);
+background: var(--color-primitive-blue-50);
+color: var(--color-key-hover);
+text-decoration: underline;
+text-decoration-thickness: 1px;
 }
-
-/* サイズのバリエーション（修飾子）：大きさだけを担当する */
 .btn-sm {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 0 18px;
-  font-size: 0.85rem;
+min-height: 48px;
+padding: 8px 16px;
+font-size: 0.95rem;
+border-radius: 8px;
 }
 
 /* ---- 4. 進め方 ---- */
 .howto-steps li {
-  margin-bottom: 6px;
+margin-bottom: 8px;
 }
 .stamp-types li {
-  margin-bottom: 4px;
+margin-bottom: 4px;
 }
 
 /* ---- 5. リンク集 ---- */
 .link-list {
-  list-style: none;
-  padding-left: 0;
+list-style: none;
+padding-left: 0;
 }
 .link-list li {
-  margin-bottom: 4px;
+margin-bottom: 6px;
 }
 
 /* ---- 6. 店舗一覧 ---- */
 .shop-count {
   color: var(--muted-color);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin-bottom: 12px;
 }
 .shop-grid {
   display: grid;
   gap: 12px;
-  align-items: start; /* 開いた店舗の行が、隣の行まで引き伸ばさないようにする */
+  align-items: start;
 }
 .shop-card {
   background: var(--card-bg);
-  border: 1px solid #eee;
+  border: 1px solid var(--color-neutral-solid-gray-200);
   border-radius: var(--radius);
   padding: 14px 16px;
 }
@@ -270,18 +336,18 @@ h3 {
   margin: 0 0 2px;
 }
 .shop-category {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--muted-color);
   margin-bottom: 6px;
 }
 .shop-meta {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   margin: 6px 0;
 }
 .shop-note {
-  font-size: 0.85rem;
-  color: #555;
-  background: #faf5f0;
+  font-size: 0.9rem;
+  color: var(--color-neutral-solid-gray-800);
+  background: var(--color-neutral-solid-gray-50);
   border-radius: 6px;
   padding: 6px 10px;
   margin: 6px 0;
@@ -290,37 +356,40 @@ h3 {
   margin-top: 4px;
 }
 
-/* 店舗1件分の開閉ボックス（details）。閉じている間は summary の細い行だけが見える */
+/* 店舗1件分のアコーディオン（DADSアコーディオンの考え方。
+   実装は従来どおり native details で、検索・支援技術への配慮を保つ） */
 .shop-item {
   background: var(--card-bg);
-  border: 1px solid #eee;
+  border: 1px solid var(--color-neutral-solid-gray-300);
   border-radius: var(--radius);
 }
 .shop-summary {
-  list-style: none; /* 既定の三角マーカーを消し、自前の矢印に差し替える */
+  list-style: none;
   cursor: pointer;
-  padding: 10px 14px;
-  min-height: 44px; /* タップしやすい高さを確保 */
+  padding: 12px 16px;
+  min-height: 48px;
+}
+.shop-summary:hover {
+  background: var(--color-primitive-blue-50);
 }
 .shop-summary::-webkit-details-marker {
-  display: none; /* Safari向けのマーカー消し */
+  display: none;
 }
 .shop-summary-main {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-/* 開閉の矢印。閉じている間は右向き、開いたら下向きに回転する */
 .shop-summary-main::before {
   content: "";
   flex-shrink: 0;
   width: 0.55em;
   height: 0.55em;
-  border-right: 2px solid var(--main-color);
-  border-bottom: 2px solid var(--main-color);
+  border-right: 2px solid var(--color-key);
+  border-bottom: 2px solid var(--color-key);
   transform: rotate(-45deg);
 }
-.shop-item[open ] > .shop-summary .shop-summary-main::before {
+.shop-item[open] > .shop-summary .shop-summary-main::before {
   transform: rotate(45deg);
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -337,31 +406,31 @@ h3 {
   align-items: center;
   flex-wrap: wrap;
   gap: 2px 8px;
-  margin-left: calc(0.55em + 8px); /* 矢印の分だけ字下げして、店名の位置に揃える */
+  margin-left: calc(0.55em + 8px);
 }
 .shop-summary .shop-category {
   margin: 0;
 }
-/* ぺったん済みの判子マーク。閉じた行でも済んだ店が分かるように */
+/* ぺったん済みの判子マーク（テーマ上の印章なので赤・丸は維持） */
 .shop-done {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 1.7em;
   height: 1.7em;
-  border: 2px solid var(--main-color);
+  border: 2px solid var(--color-semantic-error-2);
   border-radius: 50%;
-  color: var(--main-color);
-  font-size: 0.72rem;
+  color: var(--color-semantic-error-2);
+  font-size: 0.75rem;
   font-weight: bold;
-  transform: rotate(-8deg); /* 判子らしく少し傾ける */
+  transform: rotate(-8deg);
 }
 .shop-detail {
-  padding: 2px 14px 12px;
+  padding: 4px 16px 14px;
+  border-top: 1px solid var(--color-neutral-solid-gray-100);
 }
-/* 開閉をなめらかにする（対応ブラウザのみ。非対応ではパッと開閉するだけ） */
 .shop-item::details-content {
-  interpolate-size: allow-keywords; /* 高さの自動計算へアニメーションできるようにする */
+  interpolate-size: allow-keywords;
   overflow: clip;
   contain: layout;
 }
@@ -373,45 +442,47 @@ h3 {
     transition:
       block-size 0.25s ease-in-out,
       content-visibility 0.25s;
-    transition-behavior: allow-discrete; /* 閉じ終わるまで中身を隠さない */
+    transition-behavior: allow-discrete;
   }
 }
 
-/* スタンプ条件のバッジ。JSONの stampType の値＝クラス名で色分け */
+/* スタンプ条件のラベル。色はDADSプリミティブから採り、角は小さく四角寄りに */
 .badge {
   display: inline-block;
   font-size: 0.75rem;
-  color: #fff;
-  border-radius: 999px;
-  padding: 2px 10px;
+  font-weight: bold;
+  color: var(--color-neutral-white);
+  border-radius: 4px;
+  padding: 2px 8px;
   margin: 2px 4px 2px 0;
 }
 .badge-eat {
-  background: #c73a63;
+  background: #0017c1;
 }
 .badge-eat_night {
-  background: #6a4c93;
+  background: #5109ad;
 }
 .badge-visit {
-  background: #1f7a6f;
+  background: #197a4b;
 }
 .badge-stay {
-  background: #4361ee;
+  background: #0031d8;
 }
 .badge-onsen {
-  background: #a8540f;
+  background: #ac3e00;
 }
 
 .error {
-  color: #b00020;
+  color: var(--color-semantic-error-2);
   font-weight: bold;
 }
 
-/* ---- 7. フッター ---- */
+/* ---- 7. フッター（DADSフッター型：淡グレー地・黒文字） ---- */
 .site-footer {
-  background: #444;
-  color: #ccc;
-  font-size: 0.8rem;
+  background: var(--color-neutral-solid-gray-50);
+  color: var(--color-neutral-solid-gray-800);
+  border-top: 1px solid var(--color-neutral-solid-gray-200);
+  font-size: 0.85rem;
   padding: 24px 0 32px;
   margin-top: 24px;
 }
@@ -420,52 +491,54 @@ h3 {
 }
 .copyright {
   text-align: center;
-  color: #b5b5b5;
+  color: var(--color-neutral-solid-gray-600);
   margin-top: 12px;
 }
-
 .data-note {
   text-align: center;
-  font-size: 0.8rem;
-  color: #b5b5b5;
+  font-size: 0.85rem;
+  color: var(--color-neutral-solid-gray-600);
   margin-top: 24px;
+}
+.dads-note {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-neutral-solid-gray-600);
+  margin-top: 8px;
 }
 
 /* ---- 8. マップページ ---- */
-/* 「ヘッダー＋地図」で画面をちょうど1枚に収めるレイアウト */
 body.map-page {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  height: 100dvh; /* dvh：スマホのURLバーの出入りで高さが変わる問題への対応。
-                       未対応ブラウザは上の100vhが使われる（二重指定はそのため） */
-  overflow: hidden; /* ページ全体のスクロールを止める。地図のピンチ操作と
-                       ページスクロールの干渉を防ぐため */
+  height: 100dvh;
+  overflow: hidden;
 }
 .map-header {
-  background: var(--main-color);
-  color: #fff;
+  background: var(--color-neutral-white);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--color-neutral-solid-gray-200);
   padding: 8px 0;
-  flex: none; /* ヘッダーは縮まない宣言 */
+  flex: none;
 }
 .map-header .container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* タイトルは左、戻るリンクは右に寄せる */
-  flex-wrap: wrap; /* 狭い画面ではタイトルと戻るリンクを縦並びにする */
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 4px 12px;
 }
 .map-header .site-title {
   font-size: 1rem;
 }
 .map-header a {
-  color: #fff;
+  color: var(--color-primitive-blue-1000);
+}
+.map-header .site-title a {
+  color: var(--text-color);
   text-decoration: none;
 }
-.map-header a:hover {
-  text-decoration: underline;
-}
-
 .map-header-actions {
   display: flex;
   align-items: center;
@@ -478,47 +551,43 @@ body.map-page {
   min-height: 44px;
   padding: 0 4px;
 }
+/* 現在地ボタンはDADSのアウトラインボタン型 */
 .locate-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
+  min-height: 48px;
   padding: 0 16px;
   white-space: nowrap;
-  background: #fff;
-  color: var(--main-dark);
-  border: none;
-  border-radius: 999px;
-  font-size: 0.85rem;
+  background: var(--color-neutral-white);
+  color: var(--color-key);
+  border: 1px solid var(--color-key);
+  border-radius: 8px;
+  font-size: 0.95rem;
   font-weight: bold;
   cursor: pointer;
 }
 .locate-btn:hover {
-  background: #fdeef2;
+  background: var(--color-primitive-blue-50);
+  text-decoration: underline;
 }
-/* 「取得中」の間は押せない＆砂時計カーソル */
 .locate-btn:disabled {
   opacity: 0.6;
   cursor: wait;
 }
-
 #locate-btn.following {
-  background: var(--main-color);
-  color: #fff;
+  background: var(--color-key);
+  color: var(--color-neutral-white);
 }
 
-/* 地図本体：flex:1 で「ヘッダーを除いた残り全部」を占有 */
 #map {
   flex: 1;
-  min-height: 0; /* flexアイテムはデフォルトで「内容より縮まない」ため、
-                         縮むことを明示しないと地図が画面からはみ出す */
-  background: #e8e4dc; /* タイル読み込み完了前の地肌色 */
+  min-height: 0;
+  background: #e8e4dc;
 }
-
-/* Leaflet生成部分をサイトのデザインに寄せる */
 .leaflet-container {
   font-family: inherit;
-} /* Leafletは独自フォント指定を持つので上書き */
+}
 .leaflet-popup-content-wrapper {
   border-radius: var(--radius);
 }
@@ -527,11 +596,11 @@ body.map-page {
   line-height: 1.6;
 }
 
-/* マーカー（pin） */
+/* マーカー。カテゴリ色はDADSプリミティブに差し替え */
 .pin-wrap {
   background: none;
   border: none;
-} /* divIconの既定スタイル（白い四角枠）を消す */
+}
 .pin {
   box-sizing: border-box;
   width: 44px;
@@ -546,38 +615,37 @@ body.map-page {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 .pin-food {
-  border-color: #c73a63;
+  border-color: #ce0000;
 }
 .pin-shop {
-  border-color: #1f7a6f;
+  border-color: #197a4b;
 }
 .pin-hotel {
-  border-color: #4361ee;
+  border-color: #0031d8;
 }
 .pin-onsen {
-  border-color: #a8540f;
+  border-color: #c74700;
 }
 .pin-spot {
-  border-color: #6a4c93;
+  border-color: #5c10be;
 }
 
-/* ポップアップ内の部品 */
 .popup-name {
   font-size: 0.95rem;
 }
 .popup-cat {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--muted-color);
   margin-bottom: 4px;
 }
 .popup-meta {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   margin: 6px 0;
 }
 .popup-note {
-  font-size: 0.8rem;
-  color: #555;
-  background: #faf5f0;
+  font-size: 0.85rem;
+  color: var(--color-neutral-solid-gray-800);
+  background: var(--color-neutral-solid-gray-50);
   border-radius: 6px;
   padding: 6px 10px;
   margin: 6px 0;
@@ -586,16 +654,17 @@ body.map-page {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
-/* 凡例（左下） */
+/* 凡例 */
 .map-legend {
   background: #fff;
+  border: 1px solid var(--color-neutral-solid-gray-200);
   border-radius: var(--radius);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  font-size: 0.8rem;
-  max-width: 190px;
+  box-shadow: 0 2px 12px 2px rgba(0, 0, 0, 0.1), 0 1px 6px 0 rgba(0, 0, 0, 0.3);
+  font-size: 0.85rem;
+  max-width: 200px;
   overflow: hidden;
 }
 .map-legend summary {
@@ -603,7 +672,7 @@ body.map-page {
   align-items: center;
   min-height: 44px;
   padding: 0 12px;
-  color: var(--main-dark);
+  color: var(--color-key);
   font-weight: bold;
   cursor: pointer;
   list-style: none;
@@ -612,7 +681,7 @@ body.map-page {
   display: none;
 }
 .map-legend[open] summary {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-neutral-solid-gray-100);
 }
 .map-legend ul {
   margin: 0;
@@ -624,7 +693,7 @@ body.map-page {
   align-items: center;
   gap: 8px;
   margin: 4px 0;
-  color: #333;
+  color: var(--text-color);
 }
 .legend-icon {
   width: 24px;
@@ -639,23 +708,23 @@ body.map-page {
   font-size: 13px;
 }
 .legend-icon-food {
-  border-color: #c73a63;
+  border-color: #ce0000;
 }
 .legend-icon-shop {
-  border-color: #1f7a6f;
+  border-color: #197a4b;
 }
 .legend-icon-hotel {
-  border-color: #4361ee;
+  border-color: #0031d8;
 }
 .legend-icon-onsen {
-  border-color: #a8540f;
+  border-color: #c74700;
 }
 .legend-icon-spot {
-  border-color: #6a4c93;
+  border-color: #5c10be;
 }
 .legend-current {
-  border-color: #4361ee;
-  color: #4361ee;
+  border-color: #0031d8;
+  color: #0031d8;
   font-size: 14px;
 }
 .legend-cluster {
@@ -666,135 +735,120 @@ body.map-page {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #9e2a4d;
+  background: var(--color-primitive-blue-1000);
   color: #fff;
   font-size: 11px;
   font-weight: bold;
 }
 
-/* マーカークラスタ（プラグイン既定の緑をサイトのピンクに変更） */
+/* マーカークラスタはキーカラー（青）に */
 .marker-cluster {
   font-family: inherit;
 }
 .marker-cluster-small,
 .marker-cluster-medium,
 .marker-cluster-large {
-  background-color: rgba(199, 58, 99, 0.25);
+  background-color: rgba(0, 23, 193, 0.2);
 }
 .marker-cluster-medium {
-  background-color: rgba(158, 42, 77, 0.28);
+  background-color: rgba(0, 17, 143, 0.24);
 }
 .marker-cluster-large {
-  background-color: rgba(120, 25, 55, 0.3);
+  background-color: rgba(0, 0, 96, 0.28);
 }
 .marker-cluster-small div,
 .marker-cluster-medium div,
 .marker-cluster-large div {
-  background-color: #9e2a4d;
+  background-color: var(--color-primitive-blue-1000);
   color: #fff;
   font-weight: bold;
 }
-/* 小クラスタは外径44pxに合わせて内側も34pxにする */
 .marker-cluster-small div {
   width: 34px;
   height: 34px;
   margin: 5px;
 }
+
 /* ---- 9. ぺったん済ボタンと進捗表示 ---- */
 .stamp-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
+  min-height: 48px;
   padding: 0 20px;
-  border: 2px solid var(--main-color);
-  border-radius: 999px;
+  border: 1px solid var(--color-key);
+  border-radius: 8px;
   background: #fff;
-  color: var(--main-color);
+  color: var(--color-key);
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s,
-    transform 0.1s; /* 変化をなめらかに */
-  position: relative; /* ★追加：はんこ（疑似要素）の配置基準になる */
-  overflow: visible; /* ★追加：はんこがボタンからはみ出しても切らない */
+  position: relative;
+  overflow: visible;
 }
-
-/* ★追加：押し込み感（指で押した瞬間の縮み） */
 .stamp-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.97);
 }
-
 .stamp-btn:hover {
-  background: #fdeef2;
-  color: var(--main-dark);
+  background: var(--color-primitive-blue-50);
+  color: var(--color-key-hover);
+  text-decoration: underline;
 }
-/* 「済み」状態。JSがstampedクラスを付け外しする */
 .stamp-btn.stamped {
-  background: var(--main-color);
+  background: var(--color-key);
   color: #fff;
 }
-
-/* カード内のボタンとリンクを横並びに */
 .shop-actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
 }
-
-/* 進捗バー */
 .progress {
   height: 10px;
-  background: #eee;
-  border-radius: 999px;
-  overflow: hidden; /* 中の丸角を外枠ではみ出さないように切る */
+  background: var(--color-neutral-solid-gray-100);
+  border-radius: 4px;
+  overflow: hidden;
   margin: 8px 0 16px;
 }
 .progress-fill {
   height: 100%;
-  width: 0%; /* 初期値。JSが%を代入して伸ばす */
-  background: var(--main-color);
-  border-radius: 999px;
-  transition: width 0.4s; /* 数値が変わるとぬるっと伸びる */
+  width: 0%;
+  background: var(--color-key);
+  border-radius: 4px;
+  transition: width 0.4s;
 }
-
-/* マップページのヘッダー内カウンタ */
 .stamp-progress {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: bold;
   white-space: nowrap;
+  color: var(--text-color);
 }
-
-/* ポップアップ内ではボタンを横いっぱいに */
 .leaflet-popup-content .stamp-btn {
   display: flex;
   width: 100%;
   margin-top: 8px;
 }
-
 .list-tools {
   margin-bottom: 12px;
 }
 
-/* ---- 10. 絞り込み・検索 ---- */
+/* ---- 10. 絞り込み・検索（DADSの入力部品型） ---- */
 .search-box {
   width: 100%;
-  min-height: 44px;
-  padding: 8px 16px;
-  border: 2px solid #ddd;
-  border-radius: 999px;
-  font-size: 1rem; /* 1rem=16px。16px未満だとiPhoneでフォーカスした瞬間に画面がズームされる対策 */
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-neutral-solid-gray-600);
+  border-radius: 8px;
+  font-size: 1rem;
   line-height: 1.4;
   background: #fff;
+  color: var(--text-color);
 }
 .filter-box {
   margin-bottom: 16px;
 }
-/* 検索＋カテゴリチップの行は、スクロールしてもヘッダーの下に張り付く。
-   top の位置は filter.js が実測したヘッダー高さ（--header-h）を使う */
 .filter-sticky {
   position: sticky;
   top: var(--header-h, 104px);
@@ -802,7 +856,6 @@ body.map-page {
   background: var(--bg-color);
   padding: 8px 0 4px;
 }
-/* スマホではチップを折り返さず1行にして横スクロールにする（stickyの高さを抑える） */
 @media (max-width: 699px) {
   #shops .chip-row {
     flex-wrap: nowrap;
@@ -818,27 +871,32 @@ body.map-page {
 }
 .chip-row {
   display: flex;
-  flex-wrap: wrap; /* チップが多いとき自動で折り返す */
+  flex-wrap: wrap;
   gap: 6px;
   margin: 6px 0;
 }
+/* チップはDADSのチップ型ラベルに寄せ、選択中はキーカラーの塗り */
 .chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 44px;
   padding: 0 14px;
-  border: 1.5px solid var(--main-color);
+  border: 1px solid var(--color-neutral-solid-gray-600);
   border-radius: 999px;
   background: #fff;
-  color: var(--main-color);
-  font-size: 0.8rem;
+  color: var(--text-color);
+  font-size: 0.85rem;
   font-weight: bold;
   line-height: 1.2;
   cursor: pointer;
 }
+.chip:hover {
+  background: var(--color-primitive-blue-50);
+}
 .chip.active {
-  background: var(--main-color);
+  background: var(--color-key);
+  border-color: var(--color-key);
   color: #fff;
 }
 .stamp-count {
@@ -854,8 +912,6 @@ body.map-page {
   margin-bottom: 12px;
 }
 
-/* マップページの絞り込みバー */
-/* ツールバー：常時表示は1行だけ */
 .map-toolbar {
   flex: none;
   display: flex;
@@ -864,34 +920,26 @@ body.map-page {
   gap: 8px;
   padding: 8px 16px;
   background: #fff;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-neutral-solid-gray-200);
 }
 .map-toolbar .search-box {
   flex: 1 1 160px;
   width: auto;
   min-width: 0;
 }
-
-/* 開閉式の絞り込みパネル */
 .filter-panel {
   flex: none;
   background: #fff;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-neutral-solid-gray-200);
   padding: 8px 16px 10px;
   max-height: 40dvh;
   overflow-y: auto;
 }
-/* ⚠ 注意：ここに display: flex などを書かないこと！
-   書くと [hidden] 属性の display: none が負けて、
-   閉じているはずのパネルが常に表示されてしまう */
-
 .filter-count {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--muted-color);
   white-space: nowrap;
 }
-
-/* 適用中の絞り込み条件 */
 .active-filters {
   flex: none;
   display: flex;
@@ -899,16 +947,15 @@ body.map-page {
   flex-wrap: wrap;
   gap: 6px;
   padding: 6px 16px;
-  background: #fff7fa;
-  border-bottom: 1px solid #f0d5de;
-  font-size: 0.8rem;
+  background: var(--color-primitive-blue-50);
+  border-bottom: 1px solid var(--color-primitive-blue-200);
+  font-size: 0.85rem;
 }
-/* display:flex が [hidden] の display:none に勝たないように明示する */
 .active-filters[hidden] {
   display: none;
 }
 .active-filters-label {
-  color: var(--main-dark);
+  color: var(--color-key-hover);
   font-weight: bold;
 }
 .active-filter-list {
@@ -921,17 +968,16 @@ body.map-page {
   align-items: center;
   min-height: 32px;
   padding: 0 10px;
-  border: 1px solid #e5b7c5;
+  border: 1px solid var(--color-primitive-blue-200);
   border-radius: 999px;
   background: #fff;
-  color: var(--main-dark);
+  color: var(--color-key-hover);
   font-weight: bold;
 }
 .chip-clear {
-  border-color: var(--main-dark);
-  color: var(--main-dark);
+  border-color: var(--color-key);
+  color: var(--color-key);
 }
-/* 一覧ページではチップの下に控えめに置く */
 .filter-box .active-filters {
   margin-top: 8px;
   padding: 0;
@@ -939,8 +985,7 @@ body.map-page {
   border: 0;
 }
 
-/* ---- 11. ぺったん演出 ---- */
-/* 済みになった瞬間、ボタン自体がぷにっと弾む */
+/* ---- 11. ぺったん演出（機能側の演出はそのまま残す） ---- */
 .stamp-btn.just-stamped {
   animation: btn-pop 0.3s ease-out;
 }
@@ -950,24 +995,21 @@ body.map-page {
   }
   40% {
     transform: scale(0.92);
-  } /* 押し込み */
+  }
   75% {
     transform: scale(1.05);
-  } /* 跳ね返り */
+  }
   100% {
     transform: scale(1);
   }
 }
-
-/* はんこ本体。ボタンの上に白い印が落ちてきて消える */
 .stamp-btn.just-stamped::after {
-  content: ""; /* ★空文字でも"必須"。書かないと疑似要素自体が消える */
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
   width: 64px;
   height: 64px;
-  /* 画像を背景として貼る */
   background-image: url("../img/stamp.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -975,8 +1017,6 @@ body.map-page {
   pointer-events: none;
   animation: stamp-press 0.65s ease-out forwards;
 }
-
-/* 台本：落ちる → 押して一瞬キープ → 消える */
 @keyframes stamp-press {
   0% {
     opacity: 0;
@@ -995,23 +1035,21 @@ body.map-page {
     transform: translate(-50%, -50%) scale(1.06) rotate(-10deg);
   }
 }
-
-/* ★OS設定で「動きを減らす」人のための配慮 */
 @media (prefers-reduced-motion: reduce) {
   .stamp-btn.just-stamped {
     animation: none;
   }
   .stamp-btn.just-stamped::after {
-    content: none; /* はんこ自体を出さない */
+    content: none;
   }
 }
 
-/* ---- 8. 広い画面での上書き ---- */
+/* ---- 12. 広い画面での上書き ---- */
 @media (min-width: 700px) {
   .shop-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .hero h1 {
-    font-size: 2.4rem;
+    font-size: 2.25rem;
   }
 }
